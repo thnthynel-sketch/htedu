@@ -2,7 +2,7 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
   <Id>b138a6d9-6b61-4888-b678-830024705265</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>H&amp;T Education</ProviderName>
+  <ProviderName>H&amp;T EDU CO., LTD.</ProviderName>
   <DefaultLocale>vi-VN</DefaultLocale>
   <DisplayName DefaultValue="HTEdu"/>
   <Description DefaultValue="Vẽ hình, đồ thị, công thức, phiếu OMR cho giáo viên Toán – chèn thẳng vào Word, PowerPoint."/>

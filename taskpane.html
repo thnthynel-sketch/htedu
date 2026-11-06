@@ -303,7 +303,7 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--panel-2
   <header class="top">
     <a class="brand" href="#trang-chu" data-go="trang-chu" aria-label="HTEdu – trang chủ">
       <span class="logo-img" style="width:36px;height:36px" aria-hidden="true"></span>
-      <div><div class="brand-name">HTEdu</div><div class="brand-sub">H&amp;T Education · công cụ cho giáo viên</div></div>
+      <div><div class="brand-name">HTEdu</div><div class="brand-sub">H&amp;T EDU · công cụ cho giáo viên</div></div>
     </a>
     <nav class="nav" aria-label="Công cụ">
       <button data-go="trang-chu">Trang chủ</button><button data-go="ve-hinh">Vẽ hình</button><button data-go="do-thi">Đồ thị</button><button data-go="ly-hoa">Lý – Hóa</button><button data-go="cong-thuc">Công thức</button><button data-go="phieu-omr">Phiếu OMR</button><button data-go="huong-dan">Hướng dẫn</button>
@@ -358,13 +358,13 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--panel-2
       </section>
       <section class="doc">
         <h2>Đơn vị phát triển</h2>
-        <p><b>H&amp;T EDUCATION CO., LTD.</b> · Education · Maths · Science · Cambridge Curriculum. HTEdu được làm để giáo viên soạn đề, soạn bài giảng nhanh hơn và đúng chuẩn trình bày SGK.</p>
+        <p><b>CÔNG TY TNHH DỊCH VỤ H&amp;T EDU</b> (H&amp;T EDU CO., LTD.). HTEdu được làm để giáo viên soạn đề, soạn bài giảng nhanh hơn và đúng chuẩn trình bày SGK.</p>
       </section>
       <section class="doc">
         <h2>Quyền riêng tư</h2>
         <p>Hình vẽ, công thức, đồ thị và phiếu OMR đều được tạo ngay trong trình duyệt của bạn; không có dữ liệu nào gửi đi. Ngoại lệ duy nhất: khi bạn bấm <b>Dựng bằng AI</b>, nội dung đề bài được gửi cho Claude để đọc và dựng hình.</p>
       </section>
-      <footer class="foot">© H&amp;T Education · HTEdu</footer>
+      <footer class="foot">© CÔNG TY TNHH DỊCH VỤ H&amp;T EDU · HTEdu</footer>
     </div>
   </section>
 
@@ -3247,7 +3247,7 @@ function initOMR(HT, logoURI) {
   const $ = (id) => document.getElementById(id);
   const LS = 'htedu.omr.v1';
   const PRE = { toan: [12, 4, 6], khtn: [18, 4, 6], ta: [40, 0, 0] };
-  let o = { preset: 'toan', n1: 12, n2: 4, n3: 6, sub: 'H&T EDUCATION', title: 'Kỳ kiểm tra · Năm học 2026 – 2027', foot: 'Tô kín một ô tròn bằng bút chì 2B hoặc bút mực. Không tẩy xóa, không gạch chéo.', logo: true, sbd: true, made: true };
+  let o = { preset: 'toan', n1: 12, n2: 4, n3: 6, sub: 'H&T EDU', title: 'Kỳ kiểm tra · Năm học 2026 – 2027', foot: 'Tô kín một ô tròn bằng bút chì 2B hoặc bút mực. Không tẩy xóa, không gạch chéo.', logo: true, sbd: true, made: true };
   try { Object.assign(o, JSON.parse(localStorage.getItem(LS) || '{}')); } catch (e) { /* bỏ qua */ }
   const fields = ['n1', 'n2', 'n3', 'sub', 'title', 'foot'], checks = ['logo', 'sbd', 'made'];
   const sync = () => { $('omPre').value = o.preset; fields.forEach((k) => ($('om_' + k).value = o[k])); checks.forEach((k) => ($('om_' + k).checked = o[k])); };
