@@ -203,6 +203,29 @@ body.plane-mode #viewSeg, body.plane-mode #sgkOpts, body.plane-mode #bAuto { dis
 .office-only, body:not(.in-word) .word-only { display: none !important; }
 body.in-office .office-only:not(.word-only), body.in-word .office-only { display: inline-flex !important; }
 body.in-office .row.office-only { display: flex !important; }
+
+/* bảng vẽ */
+.view-board { overflow: hidden; }
+.bcols { display: grid; grid-template-columns: 300px minmax(0, 1fr) 290px; height: 100%; }
+.blib { overflow: auto; border-right: 1px solid var(--line); gap: 8px; }
+.bprops { overflow: auto; border-left: 1px solid var(--line); border-right: 0; }
+.bmain { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 10px; gap: 8px; }
+.bbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.bbar .sz { width: 52px; text-align: right; padding: 4px 6px; }
+.bwrap { flex: 1; min-height: 240px; overflow: auto; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+#bd { display: block; margin: 0 auto; box-shadow: var(--shadow); touch-action: none; background: #fff; }
+#bd .bitem { cursor: move; }
+#bd [data-h] { cursor: grab; }
+.lib { display: flex; flex-direction: column; gap: 2px; }
+.lcat summary { cursor: pointer; font-size: 11.5px; font-weight: 700; letter-spacing: .05em; color: var(--muted); padding: 7px 2px; border-bottom: 1px solid var(--line); }
+.lcat .cnt { float: right; font-weight: 500; color: var(--faint); }
+.lrow { display: flex; align-items: center; }
+.litem { flex: 1; text-align: left; border: 0; background: transparent; padding: 6px 6px; border-radius: 6px; font-size: 13px; cursor: grab; }
+.litem:hover { background: var(--teal-soft); }
+.star { border: 0; background: transparent; color: #d9a400; font-size: 15px; padding: 2px 6px; }
+.setc { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; }
+@media (max-width: 1180px) { .bcols { grid-template-columns: 260px minmax(0, 1fr) 250px; } }
+@media (max-width: 980px) { .bcols { grid-template-columns: 1fr; height: auto; } .blib { max-height: 50vh; } .bwrap { min-height: 60vh; } .view-board { overflow: visible; } }
 /* trang chủ */
 .inst { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .instc { border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px; background: var(--panel-2); }
@@ -306,7 +329,7 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--panel-2
       <div><div class="brand-name">HTEdu</div><div class="brand-sub">H&amp;T EDU · công cụ cho giáo viên</div></div>
     </a>
     <nav class="nav" aria-label="Công cụ">
-      <button data-go="trang-chu">Trang chủ</button><button data-go="ve-hinh">Vẽ hình</button><button data-go="do-thi">Đồ thị</button><button data-go="ly-hoa">Lý – Hóa</button><button data-go="cong-thuc">Công thức</button><button data-go="phieu-omr">Phiếu OMR</button><button data-go="huong-dan">Hướng dẫn</button>
+      <button data-go="trang-chu">Trang chủ</button><button data-go="ve-hinh">Vẽ hình</button><button data-go="khong-gian">Hình không gian</button><button data-go="do-thi">Đồ thị</button><button data-go="cong-thuc">Công thức</button><button data-go="phieu-omr">Phiếu OMR</button><button data-go="huong-dan">Hướng dẫn</button>
     </nav>
   </header>
 
@@ -322,9 +345,9 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--panel-2
         </div>
       </div>
       <div class="tools-grid">
-        <button class="tool" data-go="ve-hinh"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5 8 30l15 5 9-9z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M20 5l3 30M8 30l9-7 15 3M20 5l-3 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 2.4"/></svg><b>Vẽ hình</b><span>Hình không gian Toán 7–12, hình phẳng kéo điểm được. Dán đề bài để app tự dựng, tự tính khoảng cách, góc, thể tích.</span></button>
+        <button class="tool" data-go="ve-hinh"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="6" width="32" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 26l7-9 5 6 4-4 6 7" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="27" cy="13" r="2.5" fill="currentColor"/></svg><b>Vẽ hình</b><span>Bảng vẽ với kho hàng trăm mẫu Toán – Lý – Hóa: kéo thả, xoay, đổi cỡ, ghép hình, bộ hình theo bài.</span></button>
+        <button class="tool" data-go="khong-gian"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5 8 30l15 5 9-9z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M20 5l3 30M8 30l9-7 15 3M20 5l-3 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 2.4"/></svg><b>Hình không gian</b><span>Dán đề bài để app tự dựng hình, tự tính khoảng cách, góc, thể tích; nét khuất tự động.</span></button>
         <button class="tool" data-go="do-thi"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 33h31M8 36V4" stroke="currentColor" stroke-width="1.6"/><path d="M8 30C13 5 18 6 21 18s8 13 14-12" fill="none" stroke="currentColor" stroke-width="2.4"/></svg><b>Đồ thị</b><span>Đồ thị hàm số kiểu SGK, tự tìm cực trị, giao điểm, tiệm cận; bảng biến thiên tự động.</span></button>
-        <button class="tool" data-go="ly-hoa"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M15 5v11L6 33a3 3 0 0 0 3 4h22a3 3 0 0 0 3-4l-9-17V5M12 5h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M10 27h20" stroke="currentColor" stroke-width="1.6"/></svg><b>Lý – Hóa</b><span>Mạch điện, thấu kính, lực, đồ thị dao động; công thức cấu tạo, dụng cụ thí nghiệm, cấu tạo nguyên tử, bảng tuần hoàn.</span></button>
         <button class="tool" data-go="cong-thuc"><svg viewBox="0 0 40 40" aria-hidden="true"><text x="4" y="27" font-family="Times New Roman,serif" font-style="italic" font-size="20" fill="currentColor">f(x)</text><path d="M4 32h32" stroke="currentColor" stroke-width="1.6"/></svg><b>Công thức</b><span>Gõ LaTeX, bảng ký hiệu Toán – Lý – Hóa. Chép thành ảnh hoặc MathML để Word đổi thành phương trình sửa được.</span></button>
         <button class="tool" data-go="phieu-omr"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="4" width="26" height="32" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><g fill="currentColor"><circle cx="14" cy="13" r="2.3"/><circle cx="20" cy="20" r="2.3"/><circle cx="26" cy="27" r="2.3"/></g><g fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="20" cy="13" r="2.3"/><circle cx="26" cy="13" r="2.3"/><circle cx="14" cy="20" r="2.3"/><circle cx="26" cy="20" r="2.3"/><circle cx="14" cy="27" r="2.3"/><circle cx="20" cy="27" r="2.3"/></g></svg><b>Phiếu OMR</b><span>Phiếu trả lời 3 phần theo cấu trúc đề 2025, có số báo danh, mã đề. Xuất PDF khổ A4 để in.</span></button>
       </div>
@@ -392,7 +415,7 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--panel-2
           <p class="note">Khoảng khảo sát (để trống là cả tập xác định):</p>
           <div class="grid2"><label>từ <input class="inp" id="g_lo" placeholder="−∞"></label><label>đến <input class="inp" id="g_hi" placeholder="+∞"></label></div>
         </div>
-        <button class="btn" data-go="ve-hinh" data-lib="phang">Hình học phẳng → mở thư viện hình phẳng</button>
+        <button class="btn" data-go="khong-gian" data-lib="phang">Hình học phẳng → mở thư viện hình phẳng</button>
       </aside>
       <div class="main">
         <div class="row"><span class="grow"></span><button class="btn primary" id="gExport">Xuất hình</button></div>
@@ -441,19 +464,41 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--panel-2
     </div>
   </section>
 
-  <section class="view" id="vSci" hidden>
-    <div class="cols">
-      <aside class="panel"><div class="tools" id="sciTools"></div><div class="stack" id="sciForm"></div></aside>
-      <div class="main"><div class="row"><span class="note grow" id="sciInfo"></span><button class="btn primary" id="sciExport">Xuất hình</button></div><div class="sheet" id="sciOut"></div>
-      <p class="note">Hình vẽ theo quy ước SGK; xuất PNG/SVG hoặc chèn thẳng vào Word, PowerPoint khi dùng add-in.</p></div>
+  <section class="view view-board" id="vBoard" hidden>
+    <div class="bcols">
+      <aside class="panel blib">
+        <div class="chips" id="bdSubj"></div>
+        <input class="inp" id="bdSearch" placeholder="Tìm mẫu: phân số, cốc, thấu kính, etanol…" aria-label="Tìm mẫu">
+        <div id="bdLib" class="lib"></div>
+      </aside>
+      <div class="bmain">
+        <div class="bbar">
+          <button class="btn ghost" id="bdUndo" title="Hoàn tác (Ctrl+Z)">↶</button><button class="btn ghost" id="bdRedo" title="Làm lại (Ctrl+Y)">↷</button><button class="btn ghost" id="bdClear" title="Xóa cả bảng">🗑</button>
+          <button class="btn" id="bdFit">⤢ Vừa nội dung</button>
+          <button class="btn ghost" id="bdZout">−</button><span class="zoomv" id="bdZoom">100%</span><button class="btn ghost" id="bdZin">+</button>
+          <label class="note">Khổ bảng <select class="sel" id="bdSize"><option value="">Tùy chỉnh</option><option value="22x13">22 × 13 (ngang rộng)</option><option value="16x10">16 × 10 (vừa)</option><option value="12x8">12 × 8 (nhỏ)</option><option value="10x12">10 × 12 (đứng)</option><option value="30x18">30 × 18 (lớn)</option></select></label>
+          <input class="inp sz" id="bdW" aria-label="Rộng (cm)">×<input class="inp sz" id="bdH" aria-label="Cao (cm)"> cm
+          <label class="note"><input type="checkbox" id="bdSnap"> Căn lưới</label><label class="note"><input type="checkbox" id="bdGrid"> Hiện lưới</label>
+          <span class="note" id="bdXY">x: –, y: –</span><span class="note" id="bdCount">0 mẫu</span>
+        </div>
+        <div class="bwrap" id="bdWrap"><svg id="bd" xmlns="http://www.w3.org/2000/svg"></svg></div>
+        <div class="bbar">
+          <label class="note">Rộng khi chèn <input class="inp sz" id="bdWcm" value="12"> cm</label><label class="note"><input type="checkbox" id="bdLight" checked> SVG nhẹ</label>
+          <button class="btn primary office-only" id="bdIns">Chèn vào <span data-host-name>Word</span></button><button class="btn office-only word-only" id="bdEdit">Sửa hình đã chọn</button>
+          <button class="btn" id="bdCopy">Sao chép ảnh</button><button class="btn" id="bdSvg">Lưu SVG</button><button class="btn" id="bdPng">Lưu PNG</button><button class="btn" id="bdSaveP">💾 Lưu dự án</button><button class="btn" id="bdOpenP">📂 Mở dự án</button><input type="file" id="bdFile" accept=".json" hidden>
+        </div>
+        <p class="note">Kéo một mẫu từ kho vào bảng, hoặc bấm vào mẫu để thêm. Bấm vào hình trên bảng để chọn rồi kéo, xoay (núm tròn), đổi cỡ (núm vuông). Phím Delete để xóa, Ctrl+D nhân bản, mũi tên để dịch.</p>
+      </div>
+      <aside class="panel bprops" id="bdProps"></aside>
     </div>
   </section>
 
   <section class="view" id="vHelp" hidden>
     <div class="page doc-page">
       <h1>Hướng dẫn sử dụng HTEdu</h1>
-      <nav class="toc"><a href="#h1">1. Vẽ hình không gian</a><a href="#h2">2. Dựng từ đề bài</a><a href="#h3">3. Hình phẳng</a><a href="#h4">4. Đồ thị, bảng biến thiên</a><a href="#h5">5. Công thức</a><a href="#h6">6. Phiếu OMR</a><a href="#h7">7. Lưu, mở, xuất hình</a><a href="#h8">8. Gặp lỗi?</a></nav>
-      <section class="doc" id="h1"><h2>1. Vẽ hình không gian</h2><ul><li>Vào <b>Vẽ hình → Thư viện mẫu</b>, lọc theo Toán 7, 8, 9, 11, 12 rồi chọn hình. Chỉnh số đo ở cột phải.</li><li><b>Kiểu SGK</b> là phép chiếu song song như sách giáo khoa: kéo ngang để xoay đáy, kéo dọc đổi góc chiếu. <b>3D</b> xoay tự do; <b>Trên, Trước, Bên</b> là ba hình chiếu.</li><li>Nét khuất tự tính: đoạn nào bị khối che hoặc đi xuyên trong khối sẽ thành nét đứt.</li><li><b>Tự dựng</b>: chọn công cụ (trung điểm, giao điểm, hình chiếu, thiết diện, giao tuyến, đường tròn, đo đạc…), bấm lần lượt các điểm trên hình, bấm <b>Áp dụng</b>.</li></ul></section>
+      <nav class="toc"><a href="#h0">Bảng vẽ</a><a href="#h1">1. Hình không gian</a><a href="#h2">2. Dựng từ đề bài</a><a href="#h3">3. Hình phẳng</a><a href="#h4">4. Đồ thị, bảng biến thiên</a><a href="#h5">5. Công thức</a><a href="#h6">6. Phiếu OMR</a><a href="#h7">7. Lưu, mở, xuất hình</a><a href="#h8">8. Gặp lỗi?</a></nav>
+      <section class="doc" id="h0"><h2>Bảng vẽ (Vẽ hình)</h2><ul><li>Chọn môn <b>Hóa học, Vật lí, Toán, Chung</b> hoặc gõ vào ô tìm kiếm; bấm một mẫu (hoặc kéo thả) để đặt lên bảng. Bấm ☆ để lưu vào <b>Yêu thích</b>; mẫu vừa dùng nằm ở <b>Gần đây</b>.</li><li><b>📚 Bộ hình theo bài</b>: bấm “Thêm cả bộ” để xếp sẵn cả bộ hình của một bài học.</li><li>Bấm vào hình trên bảng để chọn: kéo để dời, núm tròn để xoay, núm vuông để đổi cỡ. Cột phải chỉnh số liệu của mẫu (hàm số, SMILES, tên hóa chất, góc, nhãn…), độ rộng, góc xoay, lớp trên/dưới, lật ngang.</li><li>Khổ bảng tính bằng cm; <b>Căn lưới</b> giúp xếp thẳng hàng; <b>⤢ Vừa nội dung</b> thu bảng vừa khít hình. <b>Lưu dự án</b> để mở lại và sửa tiếp; xuất SVG/PNG hoặc chèn thẳng vào Word, PowerPoint.</li></ul></section>
+      <section class="doc" id="h1"><h2>1. Hình không gian</h2><ul><li>Vào <b>Hình không gian → Thư viện mẫu</b>, lọc theo Toán 7, 8, 9, 11, 12 rồi chọn hình. Chỉnh số đo ở cột phải.</li><li><b>Kiểu SGK</b> là phép chiếu song song như sách giáo khoa: kéo ngang để xoay đáy, kéo dọc đổi góc chiếu. <b>3D</b> xoay tự do; <b>Trên, Trước, Bên</b> là ba hình chiếu.</li><li>Nét khuất tự tính: đoạn nào bị khối che hoặc đi xuyên trong khối sẽ thành nét đứt.</li><li><b>Tự dựng</b>: chọn công cụ (trung điểm, giao điểm, hình chiếu, thiết diện, giao tuyến, đường tròn, đo đạc…), bấm lần lượt các điểm trên hình, bấm <b>Áp dụng</b>.</li></ul></section>
       <section class="doc" id="h2"><h2>2. Dựng từ đề bài</h2><p>Dán đề vào <b>Vẽ hình → Từ đề bài</b>, bấm <b>Dựng hình</b>. App nhận dạng hình gốc, loại đáy, số đo, chân đường cao (SA ⊥ đáy, mặt bên ⊥ đáy, hình chiếu của đỉnh…), các điểm (trung điểm, tỉ số SM = 2MC, trọng tâm, giao điểm, hình chiếu), giao tuyến, thiết diện và câu hỏi (khoảng cách, góc, thể tích). Cột <b>Kết quả đo</b> cho đáp số đúng dạng a√6/3 để đối chiếu. Câu nào chưa đọc được sẽ hiện riêng; khi mở trong Claude có thể bấm <b>Dựng bằng AI</b>.</p></section>
       <section class="doc" id="h3"><h2>3. Hình phẳng</h2><p>Trong thư viện chọn bộ lọc <b>Hình phẳng</b>: đường cao, trung tuyến, phân giác, đường tròn nội/ngoại tiếp, tiếp tuyến, tứ giác nội tiếp, hình bình hành, hình thang cân, trực tâm. <b>Kéo các điểm</b> để đổi hình, mọi điểm dựng thêm tự cập nhật.</p></section>
       <section class="doc" id="h4"><h2>4. Đồ thị, bảng biến thiên</h2><ul><li>Nhập tối đa 5 hàm. Ký hiệu: <code>^</code> lũy thừa, <code>sqrt()</code> căn, <code>|x|</code>, <code>sin cos tan cot</code>, <code>ln</code>, <code>log</code> (cơ số 10), <code>e</code>, <code>pi</code>; được viết tắt <code>2x</code>, <code>3(x+1)</code>.</li><li>Bật <b>Điểm đặc biệt</b> để đánh dấu cực trị, giao trục kèm đường gióng; bật <b>Tiệm cận</b> để vẽ tiệm cận đứng, ngang, xiên.</li><li><b>Bảng biến thiên</b> lập theo hàm thứ nhất: dấu y′, giới hạn tại vô cực và hai bên tiệm cận đứng.</li></ul></section>
@@ -465,7 +510,7 @@ code { font-family: var(--font-mono); font-size: 12px; background: var(--panel-2
   </section>
 
   <section class="view view-draw" id="vDraw" hidden>
-    <div class="strip"><span class="strip-t">Vẽ hình · không gian &amp; phẳng</span><button class="btn primary office-only" id="bInsDraw">Chèn vào <span data-host-name>Word</span></button><button class="btn office-only word-only" id="bEditDraw">Sửa hình đã chọn</button><div class="topnav">
+    <div class="strip"><span class="strip-t">Hình không gian &amp; hình phẳng</span><button class="btn" id="bToBoard">Đưa sang bảng vẽ</button><button class="btn primary office-only" id="bInsDraw">Chèn vào <span data-host-name>Word</span></button><button class="btn office-only word-only" id="bEditDraw">Sửa hình đã chọn</button><div class="topnav">
       <button class="btn ghost" id="bUndo" title="Hoàn tác (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg><span class="lbl">Hoàn tác</span></button>
       <button class="btn ghost" id="bOpen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="lbl">Mở tệp</span></button>
       <button class="btn ghost" id="bSave"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l3 3v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M7 3v5h8V3M7 21v-7h10v7"/></svg><span class="lbl">Lưu bản vẽ</span></button>
@@ -2949,6 +2994,10 @@ function renderGraph(cfg) {
   });
   // đường cong
   g += `<defs><clipPath id="gclip"><rect x="${x0}" y="${y1}" width="${x1 - x0}" height="${y0 - y1}"/></clipPath></defs><g clip-path="url(#gclip)" fill="none" stroke-linejoin="round" stroke-linecap="round">`;
+  if (cfg.shade && fns[0] && fns[0].f) {
+    const [sa, sb] = String(cfg.shade).split(/[;,]/).map(Number), f2 = fns[1] && fns[1].f && cfg.between ? fns[1].f : () => 0;
+    if (isFinite(sa) && isFinite(sb) && sb > sa) { let d = ''; for (let k = 0; k <= 200; k++) { const x = sa + (sb - sa) * k / 200; d += (k ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(fns[0].f(x)).toFixed(1); } for (let k = 200; k >= 0; k--) { const x = sa + (sb - sa) * k / 200; d += 'L' + X(x).toFixed(1) + ',' + Y(f2(x)).toFixed(1); } g += `<path d="${d}Z" fill="#9cc3ea" fill-opacity=".45" stroke="none"/>`; }
+  }
   fns.forEach((q, k) => {
     if (!q.f) return;
     const a = an[k]; let d = '', pen = false;
@@ -3564,7 +3613,542 @@ const SCI = (() => {
     $('sciExport').onclick = () => { if (last) exportSvg(last.svg, last.W, last.H, st.tool); };
     form();
   }
-  return { init, parseNet, config };
+  return { init, parseNet, config, elem, gen: { circuit, lens, forces, wave, structure, lab, atom, ptable }, h: { T, L, AR, SV, chem, sub, vec, num, INK, BLUE, RED, F, MOL, SYM, NAME, MASS, CATN, CAT, pos } };
+})();
+
+// ================= BỘ SINH HÌNH CHO BẢNG VẼ =================
+const GEN = (() => {
+  const H = SCI.h, { T, L, AR, chem, vec, num, INK, BLUE, RED, F } = H;
+  const SV = (W, H2, b) => ({ svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H2}" width="${W}" height="${H2}">${b}</svg>`, W, H: H2 });
+  const P = (d, o = {}) => `<path d="${d}" fill="${o.f || 'none'}" stroke="${o.c || INK}" stroke-width="${o.w || 1.6}"${o.d ? ` stroke-dasharray="${o.d}"` : ''} stroke-linejoin="round" stroke-linecap="round"/>`;
+  const C = (x, y, r, o = {}) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${o.f || 'none'}" stroke="${o.c || INK}" stroke-width="${o.w || 1.6}"/>`;
+  const R = (x, y, w, h, o = {}) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${o.r || 0}" fill="${o.f || 'none'}" stroke="${o.c || INK}" stroke-width="${o.w || 1.6}"/>`;
+  const hatch = (x1, y1, x2, y2, side) => { const n = Math.max(3, Math.round(Math.hypot(x2 - x1, y2 - y1) / 10)), dx = (x2 - x1) / n, dy = (y2 - y1) / n, a = Math.atan2(y2 - y1, x2 - x1) + (side || 1) * 2.3; let o = L(x1, y1, x2, y2, { w: 2 }); for (let k = 0; k <= n; k++) o += L(x1 + dx * k, y1 + dy * k, x1 + dx * k + 9 * Math.cos(a), y1 + dy * k + 9 * Math.sin(a), { w: 1 }); return o; };
+  const strip = (r) => ({ ...r, svg: r.svg.replace(/<rect( x="[-\d.]+" y="[-\d.]+")? width="[\d.]+" height="[\d.]+" fill="#fff"\/>/, '') });
+  const crop = (inner, bb, pad) => { const [x0, y0, x1, y1] = bb; pad = pad == null ? 14 : pad; const W = x1 - x0 + 2 * pad, Hh = y1 - y0 + 2 * pad; return { svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${(x0 - pad).toFixed(1)} ${(y0 - pad).toFixed(1)} ${W.toFixed(1)} ${Hh.toFixed(1)}" width="${W.toFixed(0)}" height="${Hh.toFixed(0)}">${inner}</svg>`, W, H: Hh }; };
+  const sel = (k, l, d, opts) => [k, l, 'select', d, opts];
+  const LQ = '#cfe5f7';
+
+  // ---------- công thức (MathJax) ----------
+  function mj(tex, pt, color) {
+    if (!(window.MathJax && MathJax.tex2svg)) throw new Error('đang tải bộ dựng công thức, thử lại sau giây lát');
+    const svg = MathJax.tex2svg(tex, { display: false }).querySelector('svg');
+    const ex = pt * 96 / 72 * 0.442, w = parseFloat(svg.getAttribute('width')) * ex, h = parseFloat(svg.getAttribute('height')) * ex;
+    svg.setAttribute('width', w.toFixed(1)); svg.setAttribute('height', h.toFixed(1)); svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg'); svg.removeAttribute('style');
+    svg.querySelectorAll('[fill="currentColor"]').forEach((n) => n.setAttribute('fill', color)); svg.querySelectorAll('[stroke="currentColor"]').forEach((n) => n.setAttribute('stroke', color));
+    svg.setAttribute('fill', color); svg.setAttribute('stroke', color); svg.setAttribute('stroke-width', '0');
+    return { svg: svg.outerHTML, W: w, H: h };
+  }
+  const texify = (s) => /\$/.test(s) ? s.split('$').map((t, i) => (i % 2 ? t : t ? '\\text{' + t + '}' : '')).join('') : s;
+
+  // ---------- chung ----------
+  const G = {};
+  G.text = { n: 'Nhãn chữ / công thức', p: [['t', 'Nội dung (công thức đặt trong $…$)', 'text', 'Chú thích'], ['fs', 'Cỡ chữ (pt)', 'num', 14], ['c', 'Màu', 'color', '#111111'], ['b', 'In đậm', 'check', false], ['it', 'In nghiêng', 'check', false]],
+    r: (p) => { const s = String(p.t || ''); if (/\$|\\[a-z]/i.test(s)) return mj(/\$/.test(s) ? texify(s) : s, num(p.fs, 14), p.c || INK); const fs = num(p.fs, 14) * 96 / 72, w = Math.max(20, s.length * fs * 0.52 + 8); return SV(w, fs * 1.5, `<text x="${w / 2}" y="${fs * 0.75}" ${F} font-size="${fs}" text-anchor="middle" dominant-baseline="central" fill="${p.c || INK}"${p.b ? ' font-weight="bold"' : ''}${p.it ? ' font-style="italic"' : ''}>${s.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</text>`); } };
+  G.arrow = { n: 'Mũi tên', p: [['len', 'Dài (cm)', 'num', 3], ['two', 'Hai đầu', 'check', false], ['dash', 'Nét đứt', 'check', false], ['lab', 'Nhãn', 'text', ''], ['c', 'Màu', 'color', '#111111']],
+    r: (p) => { const w = num(p.len, 3) * 40; let o = AR(6, 22, w + 6, 22, p.c, 2, p.dash ? '6 4' : ''); if (p.two) o += AR(w + 6, 22, 6, 22, p.c, 2); if (p.lab) o += T(w / 2 + 6, 9, p.lab, { it: true, fs: 15, c: p.c }); return SV(w + 12, 32, o); } };
+  G.line = { n: 'Đoạn thẳng', p: [['len', 'Dài (cm)', 'num', 3], ['dash', 'Nét đứt', 'check', false], ['w', 'Độ dày', 'num', 1.8], ['c', 'Màu', 'color', '#111111']], r: (p) => { const w = num(p.len, 3) * 40; return SV(w + 8, 12, L(4, 6, w + 4, 6, { c: p.c, w: num(p.w, 1.8), d: p.dash ? '6 4' : '' })); } };
+  G.rect = { n: 'Hình chữ nhật', p: [['w', 'Rộng (cm)', 'num', 3], ['h', 'Cao (cm)', 'num', 2], ['rad', 'Bo góc', 'num', 0], ['fill', 'Màu nền', 'color', '#ffffff'], ['nofill', 'Không tô nền', 'check', true], ['c', 'Màu viền', 'color', '#111111']], r: (p) => { const w = num(p.w, 3) * 40, h = num(p.h, 2) * 40; return SV(w + 4, h + 4, R(2, 2, w, h, { r: num(p.rad, 0), f: p.nofill ? 'none' : p.fill, c: p.c })); } };
+  G.circle = { n: 'Hình tròn', p: [['r', 'Bán kính (cm)', 'num', 1.5], ['fill', 'Màu nền', 'color', '#ffffff'], ['nofill', 'Không tô nền', 'check', true], ['c', 'Màu viền', 'color', '#111111']], r: (p) => { const r = num(p.r, 1.5) * 40; return SV(2 * r + 4, 2 * r + 4, C(r + 2, r + 2, r, { f: p.nofill ? 'none' : p.fill, c: p.c })); } };
+  G.brace = { n: 'Ngoặc nhọn chú thích', p: [['len', 'Dài (cm)', 'num', 3], ['lab', 'Chú thích', 'text', 'a']], r: (p) => { const w = num(p.len, 3) * 40; return SV(w + 8, 46, P(`M4,6 q0,12 12,12 L${w / 2 - 8},18 q8,0 8,10 q0,-10 8,-10 L${w - 8},18 q12,0 12,-12`) + T(w / 2 + 4, 38, p.lab || '', { it: true })); } };
+
+  // ---------- Toán ----------
+  const tplOpts = TEMPLATE_LIST.map((t) => [t.id, (t.plane ? 'Phẳng · ' : 'Toán ' + t.grade + ' · ') + t.name]);
+  G.space = { n: 'Hình học (không gian / phẳng)', p: [sel('tpl', 'Mẫu hình', 'chop_vuong_sa', tplOpts), ['prob', 'Hoặc dán đề bài để dựng', 'area', ''], ['beta', 'Xoay đáy (°)', 'num', 0], ['alpha', 'Góc chiếu (°)', 'num', 45], sel('doc', 'Kiểu nét', 'exam', [['exam', 'Đen (đề kiểm tra)'], ['lecture', 'Hai màu (bài giảng)']]), ['labels', 'Hiện tên điểm', 'check', true], ['dots', 'Chấm điểm', 'check', true], ['fs', 'Cỡ chữ', 'num', 17]],
+    r: (p) => {
+      let sc;
+      if (p.scene) sc = JSON.parse(JSON.stringify(p.scene));
+      else if (p.prob && p.prob.trim()) { const r = parseProblem(p.prob); if (!r.scene) throw new Error('chưa nhận ra hình trong đề'); sc = r.scene; }
+      else { const Tp = TEMPLATES[p.tpl] || TEMPLATES.chop_vuong_sa; sc = { plane: !!Tp.plane, base: { template: Tp.id, params: Object.assign({}, Tp.defaults, p.params || {}) }, steps: JSON.parse(JSON.stringify(Tp.steps || [])) }; }
+      const M = evaluate(sc, TEMPLATES);
+      const view = sc.plane ? { mode: 'ortho', az: 0, el: 90 } : { mode: 'sgk', alpha: num(p.alpha, 45), k: 0.5, beta: num(p.beta, 0) };
+      Object.assign(view, computeFit(M, view, 520, 420, 30));
+      const r = renderScene(M, view, { doc: p.doc || 'exam', width: 1.8, font: num(p.fs, 17), labels: p.labels !== false, dots: p.dots !== false, hiddenLines: true, fill: true }, 520, 420, { labelOffsets: sc.labelOffsets || {}, hiddenSteps: (sc.steps || []).map((s, i) => (s.hidden ? i : -1)).filter((i) => i >= 0) });
+      return crop(r.svg, r.bbox, 12);
+    } };
+  G.graph = { n: 'Đồ thị hàm số', p: [['f', 'Hàm số (cách nhau bởi dấu ;)', 'text', 'x^3 - 3x'], ['xmin', 'x từ', 'num', -3], ['xmax', 'x đến', 'num', 3], ['autoY', 'Tự chọn khoảng y', 'check', true], ['ymin', 'y từ', 'num', -4], ['ymax', 'y đến', 'num', 4], ['marks', 'Điểm đặc biệt, gióng trục', 'check', true], ['asym', 'Tiệm cận', 'check', true], ['nums', 'Số trên trục', 'check', true], ['grid', 'Lưới', 'check', false], ['equal', 'Tỉ lệ 1:1', 'check', true], ['shade', 'Tô miền [a; b] (vd 0;2)', 'text', ''], ['between', 'Tô giữa hàm 1 và hàm 2', 'check', false], ['color', 'Nhiều màu', 'check', false]],
+    r: (p) => strip({ W: 760, H: 540, ...renderGraph({ fns: String(p.f).split(';').map((e) => ({ expr: e.trim() })).filter((q) => q.expr), xmin: num(p.xmin, -3), xmax: num(p.xmax, 3), ymin: num(p.ymin, -4), ymax: num(p.ymax, 4), autoY: p.autoY !== false, marks: !!p.marks, asym: !!p.asym, nums: p.nums !== false, grid: !!p.grid, equal: p.equal !== false, black: !p.color, shade: p.shade, between: p.between }) }) };
+  G.bbt = { n: 'Bảng biến thiên', p: [['f', 'Hàm số y =', 'text', 'x^3 - 3x + 1'], ['lo', 'Khảo sát từ (trống = −∞)', 'text', ''], ['hi', 'đến (trống = +∞)', 'text', ''], ['name', 'Tên hàm', 'text', 'y']],
+    r: (p) => { const nv = (s, d) => (String(s || '').trim() === '' ? d : compileExpr(String(s))(0)); return renderBBT(compileExpr(p.f), p.name || 'y', nv(p.lo, -Infinity), nv(p.hi, Infinity)); } };
+  G.sign = { n: 'Bảng xét dấu', p: [['f', 'Biểu thức f(x) =', 'text', '(x+2)(x-1)(x-3)'], ['name', 'Tên', 'text', 'f(x)']],
+    r: (p) => {
+      const f = compileExpr(p.f), an = analyze(f, -60, 60, 24000), pts = [...an.roots.map((x) => ({ x, t: '0' })), ...an.vas.map((x) => ({ x, t: '||' }))].sort((a, b) => a.x - b.x);
+      const cols = [{ x: -Infinity }, ...pts, { x: Infinity }], cw = 86, lw = 70, W = lw + cw * (cols.length - 1) + 50, Hh = 84;
+      const cx = (k) => lw + 25 + cw * k;
+      let o = R(0.5, 0.5, W - 1, Hh - 1, { f: '#fff' }) + L(lw, 0, lw, Hh) + L(0, 42, W, 42) + T(lw / 2, 21, 'x', { it: true }) + T(lw / 2, 63, p.name || 'f(x)', { it: true });
+      cols.forEach((c, k) => { o += T(cx(k), 21, fmtNum(c.x)); if (c.t === '0') o += T(cx(k), 63, '0'); if (c.t === '||') o += L(cx(k) - 2, 42, cx(k) - 2, Hh) + L(cx(k) + 2, 42, cx(k) + 2, Hh); });
+      for (let k = 0; k + 1 < cols.length; k++) { const a = cols[k].x, b = cols[k + 1].x, m = isFinite(a) && isFinite(b) ? (a + b) / 2 : isFinite(a) ? a + 1 : isFinite(b) ? b - 1 : 0, v = f(m); o += T((cx(k) + cx(k + 1)) / 2, 63, isFinite(v) ? (v > 0 ? '+' : '−') : ''); if (k > 0 && k < cols.length - 1 && cols[k].t !== '||') o += L(cx(k), 42, cx(k), Hh, { w: 0.8, d: '3 3' }); }
+      return SV(W, Hh, o);
+    } };
+  G.valtab = { n: 'Bảng giá trị', p: [['f', 'Hàm số y =', 'text', 'x^2 - 2x'], ['xs', 'Các giá trị x', 'text', '-1; 0; 1; 2; 3']],
+    r: (p) => { const f = compileExpr(p.f), xs = String(p.xs).split(/[;,]/).map((s) => s.trim()).filter(Boolean), cw = 64, lw = 60, W = lw + cw * xs.length, Hh = 80; let o = R(0.5, 0.5, W - 1, Hh - 1, { f: '#fff' }) + L(0, 40, W, 40) + T(lw / 2, 20, 'x', { it: true }) + T(lw / 2, 60, 'y', { it: true }); xs.forEach((s, k) => { const x0 = lw + k * cw; o += L(x0, 0, x0, Hh) + T(x0 + cw / 2, 20, s.replace('-', '−')) + T(x0 + cw / 2, 60, fmtNum(f(compileExpr(s)(0)))); }); return SV(W, Hh, o); } };
+  G.numline = { n: 'Trục số', p: [['iv', 'Khoảng / đoạn (vd [-2; 3), (-∞; 1])', 'text', '[-2; 3)'], ['pts', 'Điểm đánh dấu thêm', 'text', '0'], ['shade', 'Kiểu tô', 'select', 'keep', [['keep', 'Gạch bỏ phần không thuộc'], ['bold', 'Tô đậm phần thuộc']]]],
+    r: (p) => {
+      const m = String(p.iv).replace(/\s|−/g, (c) => (c === '−' ? '-' : '')).match(/^([[(])([^;,]+)[;,]([^\])]+)([\])])$/); if (!m) throw new Error('viết khoảng dạng [a; b) hoặc (-∞; b]');
+      const v = (s) => (/∞|inf/.test(s) ? (s.includes('-') ? -Infinity : Infinity) : compileExpr(s)(0)), a = v(m[2]), b = v(m[3]);
+      const ex = String(p.pts || '').split(/[;,]/).map((s) => s.trim()).filter(Boolean).map((s) => compileExpr(s)(0));
+      const fin = [a, b, ...ex].filter(isFinite), lo = Math.min(...fin) - 2, hi = Math.max(...fin) + 2, W = 520, X = (x) => 30 + (x - lo) / (hi - lo) * (W - 70), y = 40;
+      let o = AR(10, y, W - 10, y, INK, 1.6);
+      const xa = isFinite(a) ? X(a) : 14, xb = isFinite(b) ? X(b) : W - 24;
+      if (p.shade === 'bold') o += L(xa, y, xb, y, { w: 5, c: BLUE }); else { if (isFinite(a)) for (let x = 14; x < xa - 4; x += 7) o += L(x, y - 6, x + 6, y + 2, { w: 1 }); if (isFinite(b)) for (let x = xb + 4; x < W - 24; x += 7) o += L(x, y - 6, x + 6, y + 2, { w: 1 }); }
+      const br = (x, open, left) => T(x, y, left ? (open ? '(' : '[') : (open ? ')' : ']'), { fs: 26, c: BLUE });
+      if (isFinite(a)) o += br(xa, m[1] === '(', true) + T(xa, y + 24, fmtNum(a)); if (isFinite(b)) o += br(xb, m[4] === ')', false) + T(xb, y + 24, fmtNum(b));
+      ex.forEach((x) => { o += L(X(x), y - 4, X(x), y + 4) + T(X(x), y + 24, fmtNum(x)); });
+      return SV(W, 72, o);
+    } };
+  const palette = ['#0B3C6D', '#14a9b5', '#e8a33d', '#c4382c', '#8a4fbf', '#12937f', '#6b7a89'];
+  const parseData = (s) => String(s).split(/[;\n]/).map((x) => x.split(':')).filter((a) => a.length === 2).map(([k, v]) => [k.trim(), num(v, 0)]);
+  G.bar = { n: 'Biểu đồ cột', p: [['d', 'Dữ liệu (nhãn: giá trị; …)', 'area', 'Giỏi: 12; Khá: 18; Đạt: 8; Chưa đạt: 2'], ['title', 'Tiêu đề', 'text', 'Kết quả học tập lớp 10A'], ['yl', 'Nhãn trục dọc', 'text', 'Số học sinh'], ['val', 'Ghi số trên cột', 'check', true]],
+    r: (p) => { const d = parseData(p.d); if (!d.length) throw new Error('nhập dữ liệu dạng nhãn: số'); const mx = Math.max(...d.map((q) => q[1])) * 1.15 || 1, W = 120 + d.length * 80, Hh = 340, oy = 290, sy = 230 / mx, st = niceStep(mx); let o = T(W / 2, 18, p.title || '', { b: true }) + AR(60, oy, W - 20, oy) + AR(60, oy, 60, 40) + T(60, 32, p.yl || '', { fs: 13, a: 'start' }); for (let v = st; v <= mx; v += st) o += L(56, oy - v * sy, W - 30, oy - v * sy, { w: 0.6, c: '#c8d2dc' }) + T(50, oy - v * sy, fmtNum(v), { a: 'end', fs: 13 }); d.forEach(([k, v], i) => { const x = 90 + i * 80; o += R(x, oy - v * sy, 44, v * sy, { f: palette[i % palette.length], c: INK, w: 1 }) + T(x + 22, oy + 16, k, { fs: 14 }) + (p.val ? T(x + 22, oy - v * sy - 10, fmtNum(v), { fs: 13 }) : ''); }); return SV(W, Hh, o); } };
+  G.pie = { n: 'Biểu đồ tròn', p: [['d', 'Dữ liệu (nhãn: giá trị; …)', 'area', 'Toán: 35; Văn: 25; Anh: 20; Khác: 20'], ['title', 'Tiêu đề', 'text', ''], ['pct', 'Ghi phần trăm', 'check', true]],
+    r: (p) => { const d = parseData(p.d), tot = d.reduce((s, q) => s + q[1], 0) || 1, cx = 150, cy = 160, r = 110; let a0 = -Math.PI / 2, o = T(cx, 20, p.title || '', { b: true }); d.forEach(([k, v], i) => { const a1 = a0 + 2 * Math.PI * v / tot, lg = a1 - a0 > Math.PI ? 1 : 0; o += `<path d="M${cx},${cy} L${cx + r * Math.cos(a0)},${cy + r * Math.sin(a0)} A${r},${r} 0 ${lg} 1 ${cx + r * Math.cos(a1)},${cy + r * Math.sin(a1)} Z" fill="${palette[i % palette.length]}" stroke="#fff" stroke-width="2"/>`; const am = (a0 + a1) / 2; if (p.pct) o += T(cx + r * 0.65 * Math.cos(am), cy + r * 0.65 * Math.sin(am), Math.round(v / tot * 1000) / 10 + '%', { fs: 13, c: '#fff', b: true }); o += R(300, 50 + i * 26, 14, 14, { f: palette[i % palette.length], w: 0 }) + T(322, 57 + i * 26, k, { a: 'start', fs: 14 }); a0 = a1; }); return SV(300 + 130, 300, o); } };
+  G.venn = { n: 'Biểu đồ Ven', p: [sel('n', 'Số tập hợp', '2', [['2', 'Hai tập'], ['3', 'Ba tập']]), ['lab', 'Tên tập', 'text', 'A, B, C'], sel('sh', 'Tô', 'none', [['none', 'Không tô'], ['cap', 'Phần giao'], ['cup', 'Phần hợp']]), ['U', 'Có tập vũ trụ', 'check', true]],
+    r: (p) => { const n = +p.n || 2, labs = String(p.lab).split(',').map((s) => s.trim()), cs = n === 2 ? [[150, 120], [230, 120]] : [[160, 110], [240, 110], [200, 175]], r = 75; let o = '', defs = ''; if (p.sh === 'cup') o += cs.map(([x, y]) => C(x, y, r, { f: '#9cc3ea', w: 0 })).join(''); if (p.sh === 'cap') { defs = `<clipPath id="vc1"><circle cx="${cs[0][0]}" cy="${cs[0][1]}" r="${r}"/></clipPath>` + (n === 3 ? `<clipPath id="vc2" clip-path="url(#vc1)"><circle cx="${cs[1][0]}" cy="${cs[1][1]}" r="${r}"/></clipPath>` : ''); o += `<circle cx="${cs[n - 1][0]}" cy="${cs[n - 1][1]}" r="${r}" fill="#9cc3ea" clip-path="url(#${n === 3 ? 'vc2' : 'vc1'})"/>`; if (n === 3) o = o.replace(`cx="${cs[2][0]}"`, `cx="${cs[2][0]}"`); } o += cs.map(([x, y], i) => C(x, y, r) + T(x + (i === 0 ? -60 : i === 1 ? 60 : 0), y + (i === 2 ? 70 : -60), labs[i] || '', { it: true, fs: 18 })).join(''); if (p.U) o += R(50, 20, 290, n === 3 ? 260 : 200) + T(66, 36, 'U', { it: true }); return SV(390, n === 3 ? 290 : 240, `<defs>${defs}</defs>` + o); } };
+  G.conic = { n: 'Đường conic', p: [sel('k', 'Loại', 'elip', [['elip', 'Elip x²/a² + y²/b² = 1'], ['hyp', 'Hypebol x²/a² − y²/b² = 1'], ['par', 'Parabol y² = 2px']]), ['a', 'a', 'num', 3], ['b', 'b', 'num', 2], ['pp', 'p (parabol)', 'num', 2], ['foci', 'Hiện tiêu điểm', 'check', true]],
+    r: (p) => { const a = num(p.a, 3), b = num(p.b, 2), pp = num(p.pp, 2), k = p.k; const S = 40, W = 560, Hh = 420, ox = k === 'par' ? 160 : W / 2, oy = Hh / 2, X = (x) => ox + x * S, Y = (y) => oy - y * S; let o = AR(20, oy, W - 15, oy) + AR(ox, Hh - 15, ox, 15) + T(W - 20, oy + 16, 'x', { it: true }) + T(ox - 14, 22, 'y', { it: true }) + T(ox - 12, oy + 15, 'O', { it: true }); let d = ''; if (k === 'elip') { for (let t = 0; t <= 360; t += 3) d += (t ? 'L' : 'M') + X(a * Math.cos(t * D2R)) + ',' + Y(b * Math.sin(t * D2R)); o += P(d + 'Z', { c: BLUE, w: 2.2 }); const c = Math.sqrt(Math.abs(a * a - b * b)); if (p.foci) o += C(X(-c), oy, 3, { f: INK }) + C(X(c), oy, 3, { f: INK }) + T(X(-c), oy + 16, 'F<tspan font-size="70%" dy="4">1</tspan>', { it: true }) + T(X(c), oy + 16, 'F<tspan font-size="70%" dy="4">2</tspan>', { it: true }); } else if (k === 'hyp') { for (const s of [1, -1]) { d = ''; for (let t = -1.8; t <= 1.8; t += 0.05) d += (t > -1.8 ? 'L' : 'M') + X(s * a * Math.cosh(t)) + ',' + Y(b * Math.sinh(t)); o += P(d, { c: BLUE, w: 2.2 }); } o += L(X(-6), Y(-6 * b / a), X(6), Y(6 * b / a), { w: 1, d: '5 4' }) + L(X(-6), Y(6 * b / a), X(6), Y(-6 * b / a), { w: 1, d: '5 4' }); const c = Math.sqrt(a * a + b * b); if (p.foci) o += C(X(-c), oy, 3, { f: INK }) + C(X(c), oy, 3, { f: INK }) + T(X(-c), oy + 16, 'F<tspan font-size="70%" dy="4">1</tspan>', { it: true }) + T(X(c), oy + 16, 'F<tspan font-size="70%" dy="4">2</tspan>', { it: true }); } else { for (let y = -4.5; y <= 4.5; y += 0.1) d += (y > -4.5 ? 'L' : 'M') + X(y * y / (2 * pp)) + ',' + Y(y); o += P(d, { c: BLUE, w: 2.2 }); if (p.foci) o += C(X(pp / 2), oy, 3, { f: INK }) + T(X(pp / 2), oy + 16, 'F', { it: true }) + L(X(-pp / 2), 20, X(-pp / 2), Hh - 20, { w: 1.2, d: '6 4' }) + T(X(-pp / 2) - 10, 30, 'Δ', { it: true }); } return SV(W, Hh, `<defs><clipPath id="cc"><rect x="10" y="10" width="${W - 20}" height="${Hh - 20}"/></clipPath></defs><g clip-path="url(#cc)">${o}</g>`); } };
+  G.trig = { n: 'Đường tròn lượng giác', p: [['a', 'Góc α (°)', 'num', 60], ['proj', 'Gióng cos, sin', 'check', true], ['tan', 'Trục tang', 'check', false]],
+    r: (p) => { const a = num(p.a, 60) * D2R, R0 = 140, cx = 200, cy = 200, mx = cx + R0 * Math.cos(a), my = cy - R0 * Math.sin(a); let o = AR(30, cy, 380, cy) + AR(cx, 370, cx, 25) + C(cx, cy, R0, { c: BLUE, w: 2 }) + T(372, cy + 16, 'x', { it: true }) + T(cx - 14, 30, 'y', { it: true }) + T(cx - 12, cy + 15, 'O', { it: true }) + T(cx + R0 + 10, cy + 14, 'A', { it: true }) + L(cx, cy, mx, my, { w: 1.8 }) + C(mx, my, 3.5, { f: RED, c: RED }) + T(mx + 12, my - 10, 'M', { it: true }) + P(`M${cx + 34},${cy} A34,34 0 ${a > Math.PI ? 1 : 0} 0 ${cx + 34 * Math.cos(a)},${cy - 34 * Math.sin(a)}`) + T(cx + 46 * Math.cos(a / 2), cy - 46 * Math.sin(a / 2), 'α', { it: true, fs: 15 }); if (p.proj) o += L(mx, my, mx, cy, { d: '5 4', w: 1 }) + L(mx, my, cx, my, { d: '5 4', w: 1 }) + T(mx, cy + (my < cy ? 16 : -14), 'cos α', { fs: 13, it: true }) + T(cx - 8, my, 'sin α', { fs: 13, it: true, a: 'end' }); if (p.tan) { const t = Math.tan(a); o += L(cx + R0, 30, cx + R0, 370, { w: 1.2 }) + T(cx + R0 + 22, 40, 't', { it: true }); if (Math.abs(t) < 1.2) o += L(cx, cy, cx + R0, cy - R0 * t, { d: '5 4', w: 1 }) + C(cx + R0, cy - R0 * t, 3, { f: INK }); } return SV(400, 390, o); } };
+
+  // ---------- Vật lí ----------
+  G.circuit = { n: 'Mạch điện (từ sơ đồ)', p: [['net', 'Sơ đồ (nối tiếp: dấu phẩy; song song: //)', 'text', 'R1, (R2 // Đ), A'], sel('src', 'Nguồn', 'E', [['E', 'Nguồn một chiều E'], ['Er', 'Nguồn E, r'], ['AC', 'Nguồn xoay chiều'], ['U', 'Hai điểm A, B']]), ['k', 'Có khóa K', 'check', true], ['lab', 'Ghi tên linh kiện', 'check', true]], r: (p) => strip(SCI.gen.circuit(p)) };
+  const CC = [['R', 'Điện trở'], ['RB', 'Biến trở'], ['Đ', 'Bóng đèn'], ['KD', 'Công tắc đóng'], ['K', 'Công tắc mở'], ['A', 'Ampe kế'], ['V', 'Vôn kế'], ['G', 'Điện kế'], ['C', 'Tụ điện'], ['L', 'Cuộn cảm'], ['E', 'Pin / nguồn một chiều'], ['BN', 'Bộ nguồn'], ['AC', 'Nguồn xoay chiều'], ['W', 'Dây dẫn (đoạn thẳng)'], ['WL', 'Dây dẫn gấp góc'], ['N', 'Điểm nối'], ['D', 'Điốt'], ['BA', 'Máy biến áp']];
+  G.cc = { n: 'Linh kiện điện', p: [sel('k', 'Linh kiện', 'R', CC), ['lab', 'Tên', 'text', 'R1'], ['vert', 'Đặt dọc', 'check', false]],
+    r: (p) => { const k = p.k, y = 30, x = 0, lab = p.lab || ''; let o;
+      if (['R', 'RB', 'A', 'V', 'G', 'C', 'L', 'K', 'E', 'AC'].includes(k)) o = SCI.elem(k === 'RB' ? 'Rb' : k === 'E' ? 'E' : k === 'K' ? 'K' : k === 'AC' ? 'AC' : k, x, y, true).replace(/>(R|Rb|C|L)<\/text>/, '>' + chem(lab) + '</text>');
+      else if (k === 'Đ') o = SCI.elem('Đ', x, y, false) + T(38, 8, chem(lab || 'Đ'), { it: true, fs: 16 });
+      else if (k === 'KD') o = L(0, y, 24, y) + L(52, y, 76, y) + C(24, y, 2.4, { f: INK }) + C(52, y, 2.4, { f: INK }) + L(24, y, 52, y - 2) + T(38, 10, 'K', { it: true, fs: 16 });
+      else if (k === 'BN') o = L(0, y, 22, y) + L(22, y - 14, 22, y + 14) + L(30, y - 7, 30, y + 7, { w: 4 }) + L(30, y, 46, y, { d: '3 3' }) + L(46, y - 14, 46, y + 14) + L(54, y - 7, 54, y + 7, { w: 4 }) + L(54, y, 76, y) + T(38, 58, chem(lab || 'Bộ nguồn'), { it: true, fs: 15 });
+      else if (k === 'W') o = L(0, y, 76, y);
+      else if (k === 'WL') o = P(`M0,${y} L60,${y} L60,${y + 40}`);
+      else if (k === 'N') o = L(0, y, 76, y) + C(38, y, 3.2, { f: INK });
+      else if (k === 'D') o = L(0, y, 28, y) + `<polygon points="28,${y - 10} 28,${y + 10} 46,${y}" fill="#fff" stroke="${INK}" stroke-width="1.6"/>` + L(46, y - 10, 46, y + 10) + L(46, y, 76, y) + T(38, 8, chem(lab || 'D'), { it: true, fs: 15 });
+      else o = P(`M4,10 L4,50 M4,10 h14 M4,50 h14`) + `<path d="M18,10 ${Array.from({ length: 5 }, () => 'a4,4 0 0 1 0,8').join(' ')}" fill="none" stroke="${INK}" stroke-width="1.6"/>` + L(34, 6, 34, 54, { w: 2.2 }) + L(40, 6, 40, 54, { w: 2.2 }) + `<path d="M56,10 ${Array.from({ length: 5 }, () => 'a4,4 0 0 0 0,8').join(' ')}" fill="none" stroke="${INK}" stroke-width="1.6"/>` + P('M56,10 h16 M56,50 h16') + T(12, 60, 'N<tspan font-size="70%" dy="4">1</tspan>', { it: true, fs: 14 }) + T(64, 60, 'N<tspan font-size="70%" dy="4">2</tspan>', { it: true, fs: 14 });
+      const W = 80, Hh = 70; return SV(W, Hh, p.vert ? `<g transform="rotate(90 40 35)">${o}</g>` : o); } };
+  G.lens = { n: 'Dựng ảnh qua thấu kính', p: [sel('type', 'Loại thấu kính', 'hoi', [['hoi', 'Hội tụ'], ['phan', 'Phân kì']]), ['f', 'Tiêu cự f (cm)', 'num', 10], ['d', 'Khoảng cách vật d (cm)', 'num', 25], ['h', 'Chiều cao vật (cm)', 'num', 3]], r: (p) => strip(SCI.gen.lens(p)) };
+  G.forces = { n: 'Lực trên mặt phẳng nghiêng / ngang', p: [sel('mode', 'Tình huống', 'nghieng', [['nghieng', 'Mặt phẳng nghiêng'], ['ngang', 'Mặt ngang, lực kéo xiên']]), ['alpha', 'Góc α (°)', 'num', 30], ['fric', 'Có ma sát', 'check', true], ['pull', 'Có lực kéo F', 'check', false], ['decomp', 'Phân tích P', 'check', true]], r: (p) => strip(SCI.gen.forces(p)) };
+  G.wave = { n: 'Đồ thị dao động / sóng', p: [sel('mode', 'Loại', 'dd', [['dd', 'Dao động x – t'], ['song', 'Sóng u – x']]), ['A', 'Biên độ A', 'num', 4], ['T', 'Chu kì T (s)', 'num', 2], ['lam', 'Bước sóng λ', 'num', 8], ['phi', 'Pha ban đầu (đơn vị π)', 'text', '0'], ['n', 'Số chu kì', 'num', 2]], r: (p) => strip(SCI.gen.wave(p)) };
+  const MECH = [['khoi', 'Vật hình khối'], ['cau', 'Quả cầu / chất điểm'], ['loxo', 'Lò xo'], ['luc', 'Vectơ lực (mũi tên có nhãn)'], ['kt', 'Kích thước (mũi tên hai đầu)'], ['goc', 'Cung góc có nhãn'], ['san', 'Mặt sàn có gạch chéo'], ['tuong', 'Tường / điểm treo'], ['mpn', 'Mặt phẳng nghiêng'], ['rr', 'Ròng rọc'], ['xe', 'Xe lăn'], ['treo', 'Dây treo + vật nặng'], ['cld', 'Con lắc đơn'], ['clxd', 'Con lắc lò xo thẳng đứng'], ['clxn', 'Con lắc lò xo nằm ngang'], ['donbay', 'Đòn bẩy cân bằng']];
+  const spring = (x1, y1, x2, y2, n) => { const len = Math.hypot(x2 - x1, y2 - y1), a = Math.atan2(y2 - y1, x2 - x1); let d = `M0,0 L10,0`; const seg = (len - 20) / (n * 2); for (let k = 0; k < n * 2; k++) d += ` L${10 + seg * (k + 0.5)},${k % 2 ? 8 : -8}`; d += ` L${len - 10},0 L${len},0`; return `<g transform="translate(${x1},${y1}) rotate(${a / D2R})">${P(d, { w: 1.5 })}</g>`; };
+  G.mech = { n: 'Cơ học', p: [sel('k', 'Hình', 'khoi', MECH), ['lab', 'Nhãn', 'text', 'm'], ['a', 'Góc / hướng (°)', 'num', 30], ['len', 'Độ dài (cm)', 'num', 3]],
+    r: (p) => { const k = p.k, lab = p.lab || '', a = num(p.a, 30) * D2R, len = num(p.len, 3) * 40; let o, W = 200, Hh = 160;
+      switch (k) {
+        case 'khoi': o = R(40, 50, 90, 60, { f: '#d9e6f5' }) + T(85, 80, lab, { it: true }); break;
+        case 'cau': o = C(80, 80, 22, { f: '#d9e6f5' }) + T(80, 80, lab, { it: true }); break;
+        case 'loxo': W = len + 20; Hh = 40; o = spring(10, 20, len + 10, 20, 7); break;
+        case 'luc': W = len + 60; Hh = len + 60; { const cx = W / 2, cy = Hh / 2; o = C(cx, cy, 3, { f: INK }) + AR(cx, cy, cx + len / 2 * Math.cos(a), cy - len / 2 * Math.sin(a), RED, 2.2) + vec(cx + (len / 2 + 16) * Math.cos(a), cy - (len / 2 + 16) * Math.sin(a), lab || 'F', RED); } break;
+        case 'kt': W = len + 20; Hh = 40; o = AR(W / 2, 26, 10, 26) + AR(W / 2, 26, W - 10, 26) + L(10, 16, 10, 36, { w: 1 }) + L(W - 10, 16, W - 10, 36, { w: 1 }) + T(W / 2, 12, lab || 'ℓ', { it: true }); break;
+        case 'goc': o = L(30, 130, 180, 130) + L(30, 130, 30 + 150 * Math.cos(a), 130 - 150 * Math.sin(a)) + P(`M80,130 A50,50 0 0 0 ${30 + 50 * Math.cos(a)},${130 - 50 * Math.sin(a)}`) + T(30 + 66 * Math.cos(a / 2), 130 - 66 * Math.sin(a / 2), lab || 'α', { it: true }); break;
+        case 'san': W = len + 20; Hh = 30; o = hatch(10, 10, len + 10, 10, 1); break;
+        case 'tuong': W = 40; Hh = len + 20; o = hatch(20, 10, 20, len + 10, -1); break;
+        case 'mpn': { const w = 200, h = w * Math.tan(a); W = w + 40; Hh = h + 40; o = `<polygon points="20,${h + 20} ${w + 20},${h + 20} ${w + 20},20" fill="#eef2f6" stroke="${INK}" stroke-width="1.8"/>` + P(`M70,${h + 20} A50,50 0 0 0 ${20 + 50 * Math.cos(a)},${h + 20 - 50 * Math.sin(a)}`) + T(84, h + 8, 'α', { it: true }); } break;
+        case 'rr': Hh = 220; o = hatch(40, 14, 160, 14, -1) + L(100, 14, 100, 50) + C(100, 70, 22, { f: '#eef2f6' }) + C(100, 70, 3, { f: INK }) + L(78, 70, 78, 150) + L(122, 70, 122, 120) + R(62, 150, 32, 32, { f: '#d9e6f5' }) + R(106, 120, 32, 32, { f: '#d9e6f5' }) + T(78, 166, 'm<tspan font-size="70%" dy="4">1</tspan>', { it: true, fs: 14 }) + T(122, 136, 'm<tspan font-size="70%" dy="4">2</tspan>', { it: true, fs: 14 }); break;
+        case 'xe': o = R(40, 60, 120, 44, { f: '#d9e6f5', r: 4 }) + C(68, 114, 12, { f: '#fff' }) + C(132, 114, 12, { f: '#fff' }) + hatch(20, 126, 180, 126, 1) + T(100, 82, lab, { it: true }); break;
+        case 'treo': Hh = 200; o = hatch(40, 14, 160, 14, -1) + L(100, 14, 100, 120) + R(78, 120, 44, 40, { f: '#d9e6f5' }) + T(100, 140, lab, { it: true }) + T(112, 70, 'ℓ', { it: true }); break;
+        case 'cld': Hh = 220; o = hatch(40, 14, 160, 14, -1) + L(100, 14, 100, 180, { w: 1, d: '5 4' }) + L(100, 14, 100 + 160 * Math.sin(a), 14 + 160 * Math.cos(a)) + C(100 + 172 * Math.sin(a), 14 + 172 * Math.cos(a), 12, { f: '#d9e6f5' }) + P(`M100,64 A50,50 0 0 0 ${100 + 50 * Math.sin(a)},${14 + 50 * Math.cos(a)}`) + T(100 + 64 * Math.sin(a / 2), 14 + 64 * Math.cos(a / 2), lab || 'α', { it: true, fs: 15 }); break;
+        case 'clxd': Hh = 230; o = hatch(40, 14, 160, 14, -1) + spring(100, 14, 100, 140, 8) + R(76, 140, 48, 40, { f: '#d9e6f5' }) + T(100, 160, lab, { it: true }) + L(140, 160, 180, 160, { w: 1, d: '4 3' }) + AR(170, 160, 170, 210) + T(182, 205, 'x', { it: true }); break;
+        case 'clxn': W = 300; Hh = 100; o = hatch(14, 10, 14, 80, -1) + hatch(14, 80, 290, 80, 1) + spring(14, 56, 150, 56, 8) + R(150, 36, 50, 44, { f: '#d9e6f5' }) + T(175, 58, lab, { it: true }) + L(175, 86, 175, 98, { w: 1 }) + T(175, 108 - 10, 'O', { it: true, fs: 13 }); break;
+        default: W = 300; Hh = 140; o = `<polygon points="150,110 136,134 164,134" fill="#9aa5b1" stroke="${INK}"/>` + L(20, 110 - 120 * Math.tan(0), 280, 110, { w: 4 }) + L(50, 110, 50, 70) + R(32, 46, 36, 24, { f: '#d9e6f5' }) + L(250, 110, 250, 80) + R(236, 56, 28, 24, { f: '#d9e6f5' }) + T(50, 58, 'P<tspan font-size="70%" dy="4">1</tspan>', { it: true, fs: 14 }) + T(250, 68, 'P<tspan font-size="70%" dy="4">2</tspan>', { it: true, fs: 14 }) + AR(150, 124, 50, 124, INK, 1) + AR(150, 124, 250, 124, INK, 1) + T(100, 112, 'ℓ<tspan font-size="70%" dy="4">1</tspan>', { it: true, fs: 14 }) + T(200, 112, 'ℓ<tspan font-size="70%" dy="4">2</tspan>', { it: true, fs: 14 });
+      }
+      return SV(W, Hh, o); } };
+  const OPT = [['tkht', 'Thấu kính hội tụ'], ['tkpk', 'Thấu kính phân kì'], ['gp', 'Gương phẳng'], ['gclom', 'Gương cầu lõm'], ['gcloi', 'Gương cầu lồi'], ['tia', 'Tia sáng (có mũi tên)'], ['vat', 'Vật sáng AB'], ['truc', 'Trục chính'], ['td', 'Tiêu điểm (F, F′, O)'], ['lk', 'Lăng kính'], ['bmss', 'Bản mặt song song'], ['khe', 'Màn chắn có hai khe'], ['man', 'Màn quan sát'], ['kx', 'Khúc xạ ánh sáng (i, r)'], ['mat', 'Mắt']];
+  G.optic = { n: 'Quang học', p: [sel('k', 'Hình', 'tkht', OPT), ['len', 'Độ dài (cm)', 'num', 4], ['a', 'Góc (°)', 'num', 40]],
+    r: (p) => { const k = p.k, len = num(p.len, 4) * 40, a = num(p.a, 40) * D2R; let o, W = 60, Hh = len + 20;
+      const tip = (x, y, s) => P(`M${x - 8},${y + s * 10} L${x},${y} L${x + 8},${y + s * 10}`, { w: 2 });
+      switch (k) {
+        case 'tkht': o = L(30, 12, 30, len + 8, { w: 2.2 }) + tip(30, 12, 1) + tip(30, len + 8, -1); break;
+        case 'tkpk': o = L(30, 14, 30, len + 6, { w: 2.2 }) + tip(30, 22, -1) + tip(30, len - 2, 1); break;
+        case 'gp': o = hatch(26, 10, 26, len + 10, 1); break;
+        case 'gclom': W = 70; o = P(`M20,10 Q50,${len / 2 + 10} 20,${len + 10}`, { w: 2.2 }); for (let t = 0.08; t < 1; t += 0.12) { const y = 10 + len * t, x = 20 + 30 * 2 * t * (1 - t) * 1.0; o += L(x, y, x - 9, y + 5, { w: 1 }); } break;
+        case 'gcloi': W = 70; o = P(`M50,10 Q20,${len / 2 + 10} 50,${len + 10}`, { w: 2.2 }); for (let t = 0.08; t < 1; t += 0.12) { const y = 10 + len * t, x = 50 - 30 * 2 * t * (1 - t); o += L(x, y, x + 9, y + 5, { w: 1 }); } break;
+        case 'tia': W = len + 20; Hh = 30; o = L(10, 15, len + 10, 15, { c: RED, w: 1.6 }) + AR(10, 15, len / 2 + 14, 15, RED, 1.6); break;
+        case 'vat': W = 50; o = AR(20, len + 10, 20, 14, BLUE, 2.4) + T(36, len + 6, 'A', { it: true }) + T(36, 18, 'B', { it: true }); break;
+        case 'truc': W = len + 20; Hh = 30; o = L(10, 15, len + 10, 15, { w: 1.2 }) + T(len, 26, 'Δ', { it: true, fs: 14 }); break;
+        case 'td': W = len + 20; Hh = 44; o = L(10, 15, len + 10, 15, { w: 1.2 }) + [[0.2, 'F'], [0.5, 'O'], [0.8, 'F′']].map(([t, n]) => L(10 + len * t, 10, 10 + len * t, 20) + T(10 + len * t, 32, n, { it: true })).join(''); break;
+        case 'lk': W = 260; Hh = 200; o = `<polygon points="130,20 60,170 200,170" fill="#eef6fb" stroke="${INK}" stroke-width="1.8"/>` + AR(10, 120, 95, 95, RED, 1.6) + L(95, 95, 165, 100, { c: RED, w: 1.6 }) + AR(165, 100, 250, 150, RED, 1.6) + T(130, 50, 'A', { it: true, fs: 15 }); break;
+        case 'bmss': W = 220; Hh = 200; o = R(60, 20, 100, 160, { f: '#eef6fb' }) + AR(10, 40, 60, 80, RED, 1.6) + L(60, 80, 160, 115, { c: RED }) + AR(160, 115, 210, 155, RED, 1.6); break;
+        case 'khe': W = 40; o = L(20, 10, 20, len / 2 - 6, { w: 3 }) + L(20, len / 2 + 2, 20, len / 2 + 18, { w: 3 }) + L(20, len / 2 + 26, 20, len + 10, { w: 3 }) + T(32, len / 2 - 2, 'S<tspan font-size="70%" dy="4">1</tspan>', { it: true, fs: 12, a: 'start' }) + T(32, len / 2 + 30, 'S<tspan font-size="70%" dy="4">2</tspan>', { it: true, fs: 12, a: 'start' }); W = 60; break;
+        case 'man': W = 40; o = R(16, 10, 8, len, { f: '#dfe6ec' }) + T(20, len + 18, 'E', { it: true, fs: 14 }); Hh = len + 30; break;
+        case 'kx': { W = 260; Hh = 240; const r = Math.asin(Math.sin(a) / 1.5); o = `<rect x="10" y="120" width="240" height="110" fill="#e6f2fb"/>` + L(10, 120, 250, 120, { w: 1.8 }) + L(130, 20, 130, 220, { w: 1, d: '5 4' }) + AR(130 - 100 * Math.sin(a), 120 - 100 * Math.cos(a), 130 - 50 * Math.sin(a), 120 - 50 * Math.cos(a), RED, 1.6) + L(130 - 50 * Math.sin(a), 120 - 50 * Math.cos(a), 130, 120, { c: RED }) + AR(130, 120, 130 + 100 * Math.sin(r), 120 + 100 * Math.cos(r), RED, 1.6) + T(130 - 22 * Math.sin(a / 2), 120 - 40 * Math.cos(a / 2), 'i', { it: true }) + T(130 + 16 * Math.sin(r / 2) + 6, 120 + 44, 'r', { it: true }) + T(30, 105, 'n<tspan font-size="70%" dy="4">1</tspan>', { it: true }) + T(30, 140, 'n<tspan font-size="70%" dy="4">2</tspan>', { it: true }); } break;
+        default: W = 120; Hh = 80; o = P('M10,40 Q55,0 100,40 Q55,80 10,40 Z', { f: '#fff' }) + C(62, 40, 16, { f: '#9cc3ea' }) + C(62, 40, 7, { f: INK });
+      }
+      return SV(W, Hh, o); } };
+  const XY = [['vt', 'Đồ thị v–t (chuyển động biến đổi đều)', 'v (m/s)', 't (s)'], ['pV', 'Đồ thị p–V đẳng nhiệt (hyperbol)', 'p', 'V'], ['UI', 'Đặc tuyến vôn–ampe (U–I)', 'I (A)', 'U (V)'], ['Nt', 'Đồ thị phóng xạ N(t)', 'N', 't'], ['VT', 'Đồ thị V–T đẳng áp', 'V', 'T (K)'], ['pT', 'Đồ thị p–T đẳng tích', 'p', 'T (K)'], ['Vt', 'Đồ thị V–t (°C) đẳng áp', 'V', 't (°C)'], ['pt', 'Đồ thị p–t (°C) đẳng tích', 'p', 't (°C)'], ['VTi', 'Đồ thị V–T đẳng nhiệt', 'V', 'T (K)'], ['pTi', 'Đồ thị p–T đẳng nhiệt', 'p', 'T (K)'], ['pV2', 'Hai đường đẳng nhiệt T₁ < T₂', 'p', 'V'], ['pVp', 'Đồ thị p–V đẳng áp', 'p', 'V'], ['pVv', 'Đồ thị p–V đẳng tích', 'p', 'V']];
+  G.xy = { n: 'Đồ thị Vật lí', p: [sel('k', 'Đồ thị', 'vt', XY.map((q) => [q[0], q[1]])), ['v0', 'Giá trị đầu (vd v₀)', 'num', 2], ['a', 'Hệ số (vd a)', 'num', 1.5]],
+    r: (p) => { const q = XY.find((x) => x[0] === p.k) || XY[0], k = q[0], W = 420, Hh = 320, ox = k === 'Vt' || k === 'pt' ? 200 : 50, oy = 280, X = (x) => ox + x, Y = (y) => oy - y; let o = AR(ox - (ox > 60 ? 160 : 10), oy, W - 10, oy) + AR(ox, oy + 10, ox, 14) + T(ox - 10, 18, q[2], { it: true, a: 'end', fs: 15 }) + T(W - 14, oy + 18, q[3], { it: true, a: 'end', fs: 15 }) + T(ox - 12, oy + 15, 'O', { it: true }); let d = ''; const line = (x1, y1, x2, y2, dsh) => L(X(x1), Y(y1), X(x2), Y(y2), { c: BLUE, w: 2.4, d: dsh });
+      if (k === 'vt') { const v0 = num(p.v0, 2) * 30, a = num(p.a, 1.5); o += line(0, v0, 300, v0 + a * 300 * 0.5) + T(ox - 8, Y(v0), 'v<tspan font-size="70%" dy="4">0</tspan>', { it: true, a: 'end', fs: 14 }); }
+      else if (['pV', 'pV2'].includes(k)) { for (const c of k === 'pV2' ? [6000, 11000] : [8000]) { d = ''; for (let x = 30; x <= 340; x += 5) d += (x > 30 ? 'L' : 'M') + X(x) + ',' + Y(Math.min(250, c / x)); o += P(d, { c: BLUE, w: 2.4 }); } if (k === 'pV2') o += T(X(330), Y(6000 / 330) - 12, 'T<tspan font-size="70%" dy="4">1</tspan>', { it: true }) + T(X(330), Y(11000 / 330) - 12, 'T<tspan font-size="70%" dy="4">2</tspan>', { it: true }); }
+      else if (['UI', 'VT', 'pT'].includes(k)) o += line(0, 0, 320, 230 * num(p.a, 1.5) / 1.5);
+      else if (k === 'Nt') { for (let x = 0; x <= 340; x += 5) d += (x ? 'L' : 'M') + X(x) + ',' + Y(240 * Math.pow(0.5, x / 80)); o += P(d, { c: BLUE, w: 2.4 }) + [80, 160].map((x, i) => L(X(x), Y(240 * Math.pow(0.5, x / 80)), X(x), oy, { d: '4 3', w: 1 }) + L(X(x), Y(240 * Math.pow(0.5, x / 80)), ox, Y(240 * Math.pow(0.5, x / 80)), { d: '4 3', w: 1 }) + T(X(x), oy + 16, ['T', '2T'][i], { it: true, fs: 14 }) + T(ox - 6, Y(240 * Math.pow(0.5, x / 80)), ['N₀/2', 'N₀/4'][i], { it: true, fs: 13, a: 'end' })).join('') + T(ox - 6, Y(240), 'N₀', { it: true, fs: 13, a: 'end' }); }
+      else if (k === 'Vt' || k === 'pt') o += line(-150, 0, 200, 230, '') + L(X(-150), Y(0), X(-150), Y(0)) + T(X(-150), oy + 16, '−273', { fs: 13 }) + line(-150, 0, 0, 230 * 150 / 350, '5 4');
+      else if (k === 'VTi' || k === 'pTi') o += line(0, 150, 320, 150);
+      else if (k === 'pVp') o += line(20, 150, 320, 150);
+      else if (k === 'pVv') o += line(150, 20, 150, 240);
+      return SV(W, Hh + 20, o); } };
+
+  // ---------- Hóa học ----------
+  G.struct = { n: 'Công thức cấu tạo', p: [sel('mol', 'Chất', 'Etanol', H.MOL.map((m) => [m[0], m[0]])), ['smiles', 'Hoặc nhập SMILES', 'text', ''], ['term', 'Hiện C ở đầu mạch', 'check', true], ['hyd', 'Hiện nguyên tử H', 'check', false], ['color', 'Tô màu nguyên tố', 'check', false], ['cap', 'Ghi tên bên dưới', 'text', '']],
+    r: (p) => { const r = strip(SCI.gen.structure(p)); if (!p.cap) return r; return { ...r, svg: r.svg.replace(/viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/, (m, x, y, w, h) => `viewBox="${x} ${y} ${w} ${+h + 26}"`).replace(/height="(\d+)"/, (m, h) => `height="${+h + 26}"`).replace('</svg>', `<text x="0" y="0" ${F} font-size="18" text-anchor="middle">${p.cap}</text></svg>`).replace(/<text x="0" y="0" ([^>]*)>([^<]*)<\/text><\/svg>/, (m, a, t) => { const vb = r.svg.match(/viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/); return `<text x="${+vb[1] + +vb[3] / 2}" y="${+vb[2] + +vb[4] + 16}" ${a}>${t}</text></svg>`; }), H: r.H + 26 }; } };
+  G.isomers = { n: 'Các đồng phân', p: [['list', 'SMILES (cách nhau bởi ;)', 'text', 'CCCC; CC(C)C'], ['names', 'Tên (cách nhau bởi ;)', 'text', 'butan; isobutan'], ['term', 'Hiện C ở đầu mạch', 'check', true]],
+    r: (p) => { const L1 = String(p.list).split(';').map((s) => s.trim()).filter(Boolean), N1 = String(p.names || '').split(';').map((s) => s.trim()); let x = 0, o = '', Hm = 0; const parts = L1.map((s, i) => { const r = SCI.gen.structure({ smiles: s, term: p.term }), vb = r.svg.match(/viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/), w = 220, h = w * vb[4] / vb[3]; Hm = Math.max(Hm, h); return { r, w, h, n: N1[i] || '' }; }); parts.forEach((q) => { o += `<svg x="${x}" y="0" width="${q.w}" height="${q.h}" ${q.r.svg.match(/viewBox="[^"]+"/)[0]}>${q.r.svg.replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg>` + T(x + q.w / 2, Hm + 18, q.n, { fs: 16 }); x += q.w + 20; }); return SV(x, Hm + 34, o); } };
+  G.eq = { n: 'Phương trình hóa học', p: [['eq', 'Phương trình (cú pháp \\ce, vd 2H2 + O2 ->[t^o] 2H2O)', 'text', 'Fe + HCl -> FeCl2 + H2 ^'], ['bal', 'Tự cân bằng hệ số', 'check', true], ['fs', 'Cỡ chữ (pt)', 'num', 16]],
+    r: (p) => { let e = String(p.eq); if (p.bal) { try { e = balance(e); } catch (er) { /* giữ nguyên */ } } return mj('\\ce{' + e + '}', num(p.fs, 16), INK); } };
+  G.atom = { n: 'Cấu tạo nguyên tử', p: [['z', 'Số hiệu nguyên tử Z', 'num', 11]], r: (p) => strip(SCI.gen.atom(p)) };
+  G.ptable = { n: 'Bảng tuần hoàn', p: [sel('mode', 'Hiển thị', 'bang', [['bang', 'Cả bảng'], ['o', 'Một ô nguyên tố']]), ['z', 'Nguyên tố Z', 'num', 26]], r: (p) => SCI.gen.ptable(p) };
+  // dụng cụ thủy tinh
+  const GL = [['coc', 'Cốc'], ['btg', 'Bình tam giác'], ['bc', 'Bình cầu đáy tròn'], ['on', 'Ống nghiệm'], ['onn', 'Ống nghiệm nghiêng (đun)'], ['otk', 'Ống thu khí úp'], ['od', 'Ống đong'], ['buret', 'Buret (có khóa)'], ['pheu', 'Phễu'], ['pc', 'Phễu chiết'], ['brk', 'Bình rửa khí'], ['ltk', 'Lọ thu khí'], ['chau', 'Chậu nước'], ['u', 'Cầu muối (ống chữ U)'], ['dt', 'Ống dẫn thẳng'], ['dl', 'Ống dẫn gấp khúc (L)'], ['dz', 'Ống dẫn gấp khúc (Z)'], ['bot', 'Bọt khí'], ['sh', 'Ống sinh hàn (nằm ngang)'], ['kip', 'Bình Kíp'], ['wurtz', 'Bình cất Wurtz (có nhánh)'], ['bc3', 'Bình cầu 3 cổ'], ['ucr', 'Ống chữ U đựng chất rắn'], ['bdm', 'Bình định mức'], ['pipet', 'Pipet có quả bóp']];
+  const SHAPE = { // [W, H, outline path, liquid clip (same if null), extra]
+    coc: [100, 130, 'M14,10 L14,118 Q14,124 20,124 L80,124 Q86,124 86,118 L86,10 M10,8 L18,12 M90,8 L82,12'],
+    btg: [110, 140, 'M42,8 L42,52 L10,126 Q8,132 16,132 L94,132 Q102,132 100,126 L68,52 L68,8'],
+    bc: [120, 150, 'M48,6 L48,52 A44,44 0 1 0 72,52 L72,6'],
+    on: [40, 160, 'M8,6 L8,140 A12,12 0 0 0 32,140 L32,6'],
+    onn: [170, 60, 'M8,14 L150,4 A11,11 0 0 1 152,26 L10,36'],
+    otk: [40, 160, 'M8,154 L8,20 A12,12 0 0 1 32,20 L32,154'],
+    od: [40, 180, 'M4,8 L10,10 L10,170 L4,174 L36,174 L30,170 L30,10 L36,8'],
+    buret: [36, 230, 'M10,6 L10,170 L16,190 L16,224 L20,224 L20,190 L26,170 L26,6'],
+    pheu: [100, 130, 'M8,8 L44,64 L44,124 L56,124 L56,64 L92,8'],
+    pc: [80, 190, 'M34,6 L34,24 Q4,70 30,120 L36,130 L36,184 L44,184 L44,130 L50,120 Q76,70 46,24 L46,6'],
+    brk: [110, 150, 'M14,40 L14,138 Q14,144 20,144 L90,144 Q96,144 96,138 L96,40 Z M34,6 L34,120 M76,6 L76,56'],
+    ltk: [90, 140, 'M30,8 L30,24 L12,40 L12,132 L78,132 L78,40 L60,24 L60,8'],
+    chau: [220, 80, 'M6,8 L18,72 L202,72 L214,8'],
+    u: [120, 150, 'M14,8 L14,110 A46,46 0 0 0 106,110 L106,8 M34,8 L34,110 A26,26 0 0 0 86,110 L86,8'],
+    dt: [160, 20, 'M4,6 L156,6 M4,14 L156,14'],
+    dl: [120, 120, 'M6,6 L110,6 L110,116 M6,14 L102,14 L102,116'],
+    dz: [180, 120, 'M6,6 L90,6 L90,110 L176,110 M6,14 L82,14 L82,118 L176,118'],
+    bot: [40, 80, ''],
+    sh: [240, 70, 'M10,24 L230,24 L230,46 L10,46 Z M40,24 L40,10 M200,46 L200,60 M2,35 L238,35'],
+    kip: [130, 220, 'M46,6 L46,40 A30,30 0 1 0 84,40 L84,6 M30,90 A40,30 0 1 0 100,90 Z M24,120 L24,200 Q24,214 40,214 L90,214 Q106,214 106,200 L106,120 M65,40 L65,200'],
+    wurtz: [170, 170, 'M60,6 L60,60 A44,44 0 1 0 84,60 L84,6 M84,36 L160,70'],
+    bc3: [170, 160, 'M74,6 L74,56 A44,44 0 1 0 98,56 L98,6 M60,64 L34,22 M112,64 L138,22'],
+    ucr: [120, 150, 'M14,8 L14,110 A46,46 0 0 0 106,110 L106,8 M34,8 L34,110 A26,26 0 0 0 86,110 L86,8'],
+    bdm: [90, 200, 'M38,6 L38,110 A36,36 0 1 0 52,110 L52,6 M30,40 L60,40'],
+    pipet: [40, 220, 'M14,60 L14,180 L18,214 L22,214 L26,180 L26,60 M8,14 A12,22 0 1 1 32,14 L32,50 L8,50 Z'],
+  };
+  G.glass = { n: 'Dụng cụ thủy tinh', p: [sel('k', 'Dụng cụ', 'coc', GL), ['lv', 'Mức chất lỏng (0 – 1)', 'num', 0.45], ['lc', 'Màu chất lỏng', 'color', '#cfe5f7'], ['lab', 'Ghi chú (hóa chất)', 'text', ''], ['solid', 'Có chất rắn ở đáy', 'check', false]],
+    r: (p) => { const s = SHAPE[p.k] || SHAPE.coc, [W, Hh, d] = s, lv = Math.max(0, Math.min(1, num(p.lv, 0.45))); let o = '';
+      if (p.k === 'bot') { o = [[20, 70, 6], [14, 50, 4], [24, 34, 5], [16, 16, 3.5]].map(([x, y, r]) => C(x, y, r, { w: 1.2, f: '#fff' })).join(''); return SV(W, Hh, o); }
+      const outer = d.split(' M')[0];
+      if (lv > 0 && !['dt', 'dl', 'dz', 'sh', 'u', 'ucr'].includes(p.k)) { const cid = 'gl' + Math.random().toString(36).slice(2, 7); o += `<defs><clipPath id="${cid}"><path d="${outer}Z"/></clipPath></defs><rect x="0" y="${Hh - Hh * lv}" width="${W}" height="${Hh * lv}" fill="${p.lc || LQ}" clip-path="url(#${cid})"/>`; }
+      if (p.k === 'u' || p.k === 'ucr') o += `<path d="M16,${Hh - 60} L16,110 A44,44 0 0 0 104,110 L104,${Hh - 60} L88,${Hh - 60} L88,110 A28,28 0 0 1 32,110 L32,${Hh - 60} Z" fill="${p.k === 'ucr' ? '#e3d6bf' : p.lc || LQ}"/>`;
+      if (p.solid) o += `<rect x="${W * 0.3}" y="${Hh * 0.82}" width="${W * 0.4}" height="${Hh * 0.08}" fill="#7b4fa0" opacity=".7"/>`;
+      o += P(d, { w: 1.8 });
+      if (p.k === 'buret') o += R(8, 182, 20, 6, { f: '#555', w: 1 }) + Array.from({ length: 8 }, (_, i) => L(10, 20 + i * 18, 18, 20 + i * 18, { w: 0.8 })).join('');
+      if (p.k === 'od') o += Array.from({ length: 9 }, (_, i) => L(10, 24 + i * 17, 18, 24 + i * 17, { w: 0.8 })).join('');
+      if (p.k === 'pc') o += R(28, 140, 24, 6, { f: '#555', w: 1 });
+      if (p.k === 'sh') o += AR(40, 4, 40, 18, BLUE, 1.2) + AR(200, 56, 200, 68, BLUE, 1.2) + T(52, 8, 'nước ra', { fs: 11, a: 'start', c: BLUE }) + T(188, 64, 'nước vào', { fs: 11, a: 'end', c: BLUE });
+      let Wf = W, Hf = Hh; if (p.lab) { o += T(W / 2, Hh + 14, chem(p.lab), { fs: 15 }); Hf += 24; }
+      return SV(Wf, Hf, o); } };
+  const LX = [['dc', 'Điện cực'], ['den', 'Đèn cồn'], ['gia', 'Giá sắt có kẹp'], ['nk', 'Nhiệt kế'], ['nut', 'Nút cao su'], ['dh', 'Đồng hồ đo (V, A, G)'], ['kieng', 'Kiềng + lưới'], ['giaon', 'Giá ống nghiệm'], ['hat', 'Chất rắn (hạt)'], ['lo', 'Lọ hóa chất có nhãn'], ['ong', 'Ống nhỏ giọt'], ['chen', 'Chén sứ'], ['dua', 'Đũa thủy tinh'], ['cockieng', 'Cốc đun trên kiềng + đèn cồn'], ['can', 'Cân điện tử']];
+  const burner = (x, y) => `<path d="M${x - 26},${y} L${x - 20},${y - 34} Q${x},${y - 44} ${x + 20},${y - 34} L${x + 26},${y} Z" fill="#eef2f6" stroke="${INK}" stroke-width="1.6"/>` + R(x - 5, y - 52, 10, 12, { f: '#fff', w: 1.4 }) + `<path d="M${x},${y - 54} q-12,-16 0,-34 q12,18 0,34" fill="#ffd27a" stroke="#d98a1c" stroke-width="1.2"/>`;
+  G.labx = { n: 'Dụng cụ khác', p: [sel('k', 'Dụng cụ', 'den', LX), ['lab', 'Nhãn / chữ', 'text', '']],
+    r: (p) => { const k = p.k, lab = p.lab || ''; let o, W = 100, Hh = 120;
+      switch (k) {
+        case 'dc': W = 40; Hh = 150; o = R(12, 6, 16, 140, { f: '#7d8b99' }) + T(20, 20, lab || '', { fs: 14, c: '#fff' }); break;
+        case 'den': o = burner(50, 110); break;
+        case 'gia': W = 140; Hh = 260; o = R(10, 244, 110, 12, { f: '#9aa5b1', w: 1 }) + R(24, 20, 8, 226, { f: '#9aa5b1', w: 1 }) + R(28, 100, 70, 6, { f: '#9aa5b1', w: 1 }) + P('M98,96 q16,0 16,7 q0,7 -16,7', { w: 2 }); break;
+        case 'nk': W = 30; Hh = 200; o = R(10, 6, 10, 170, { r: 5, f: '#fff' }) + C(15, 184, 10, { f: '#c4382c', c: INK }) + L(15, 60, 15, 180, { c: RED, w: 3 }) + Array.from({ length: 10 }, (_, i) => L(20, 20 + i * 15, 25, 20 + i * 15, { w: 0.8 })).join(''); break;
+        case 'nut': W = 60; Hh = 50; o = `<path d="M10,10 L50,10 L44,40 L16,40 Z" fill="#5b4636"/>`; break;
+        case 'dh': W = 70; Hh = 70; o = C(35, 35, 26, { f: '#fff' }) + T(35, 36, lab || 'V', { b: true, fs: 20 }); break;
+        case 'kieng': W = 140; Hh = 110; o = L(14, 20, 126, 20, { w: 3 }) + L(30, 20, 10, 104) + L(110, 20, 130, 104) + L(70, 20, 70, 104) + P('M20,16 L120,16', { d: '2 2', w: 3, c: '#888' }); break;
+        case 'giaon': W = 200; Hh = 150; o = R(10, 50, 180, 10, { f: '#c9a47a', w: 1 }) + R(20, 60, 8, 84, { f: '#c9a47a', w: 1 }) + R(172, 60, 8, 84, { f: '#c9a47a', w: 1 }) + [50, 85, 120, 155].map((x) => P(`M${x - 9},10 L${x - 9},120 A9,9 0 0 0 ${x + 9},120 L${x + 9},10`, { f: '#f7fbff' })).join(''); break;
+        case 'hat': W = 80; Hh = 40; o = Array.from({ length: 14 }, (_, i) => C(10 + (i * 13) % 62, 20 + ((i * 7) % 3) * 6, 4, { f: '#a48b6a', w: 0.8 })).join(''); break;
+        case 'lo': W = 90; Hh = 150; o = P('M30,10 L60,10 L60,30 L76,44 L76,140 L14,140 L14,44 L30,30 Z', { f: '#f2f6fa' }) + R(22, 70, 46, 36, { f: '#fff', w: 1 }) + T(45, 88, chem(lab || 'NaOH'), { fs: 15 }); break;
+        case 'ong': W = 30; Hh = 140; o = `<path d="M8,30 Q8,4 15,4 Q22,4 22,30 Z" fill="#555"/>` + R(11, 30, 8, 90, { f: '#fff', w: 1.4 }) + P('M11,120 L15,134 L19,120'); break;
+        case 'chen': W = 110; Hh = 60; o = P('M10,10 Q55,90 100,10 Z', { f: '#f7f4ee' }); break;
+        case 'dua': W = 20; Hh = 180; o = R(7, 6, 6, 168, { r: 3, f: '#f7fbff' }); break;
+        case 'cockieng': W = 160; Hh = 240; o = L(24, 120, 136, 120, { w: 3 }) + L(40, 120, 20, 236) + L(120, 120, 140, 236) + burner(80, 236) + `<rect x="46" y="70" width="68" height="48" fill="${LQ}"/>` + P('M44,30 L44,118 L116,118 L116,30'); break;
+        default: W = 160; Hh = 80; o = R(10, 30, 140, 40, { r: 6, f: '#dfe6ec' }) + R(40, 18, 80, 12, { f: '#c8d2dc' }) + R(60, 42, 50, 18, { f: '#1c2733' }) + T(85, 52, lab || '0,00 g', { fs: 12, c: '#7cf5c0' });
+      }
+      return SV(W, Hh, o); } };
+  const RX = [['to', 'Mũi tên phản ứng'], ['tn', 'Mũi tên thuận nghịch ⇌'], ['up', 'Khí bay lên ↑'], ['down', 'Kết tủa ↓'], ['plus', 'Dấu +'], ['box', 'Hộp chất (sơ đồ chuyển hóa)']];
+  G.rxn = { n: 'Phản ứng & chữ', p: [sel('k', 'Kí hiệu', 'to', RX), ['top', 'Chữ trên / trong hộp', 'text', 't°'], ['bot', 'Chữ dưới', 'text', '']],
+    r: (p) => { const k = p.k; let o, W = 120, Hh = 50;
+      if (k === 'to') o = AR(8, 26, 112, 26) + T(60, 12, chem(p.top || ''), { fs: 14 }) + T(60, 40, chem(p.bot || ''), { fs: 14 });
+      else if (k === 'tn') o = P('M8,22 L108,22 L98,15') + P('M112,30 L12,30 L22,37') + T(60, 9, chem(p.top || ''), { fs: 14 }) + T(60, 44, chem(p.bot || ''), { fs: 14 });
+      else if (k === 'up') { W = 30; o = AR(15, 44, 15, 6); } else if (k === 'down') { W = 30; o = AR(15, 6, 15, 44); } else if (k === 'plus') { W = 30; o = T(15, 25, '+', { fs: 24 }); }
+      else { W = Math.max(90, String(p.top).length * 11 + 24); o = R(2, 6, W - 4, 38, { r: 8, f: '#fff' }) + T(W / 2, 25, chem(p.top || 'X'), { fs: 16 }); }
+      return SV(W, Hh, o); } };
+  G.lab = { n: 'Sơ đồ thí nghiệm', p: [sel('preset', 'Sơ đồ', 'nhietphan', [['nhietphan', 'Nhiệt phân, thu khí bằng đẩy nước'], ['daykk', 'Điều chế khí, thu bằng đẩy không khí'], ['ongnghiem', 'Nhỏ dung dịch vào ống nghiệm']]), ['chat', 'Chất rắn đem nhiệt phân', 'text', 'KMnO4'], ['dd', 'Dung dịch', 'text', 'HCl'], ['ran', 'Chất trong bình / ống nghiệm', 'text', 'CaCO3'], ['khi1', 'Khí thu bằng đẩy nước', 'text', 'O2'], ['khi', 'Khí thu bằng đẩy không khí', 'text', 'CO2'], ['nang', 'Khí nặng hơn không khí (bình ngửa)', 'check', true]], r: (p) => strip(SCI.gen.lab(p)) };
+  // phương trình tự cân bằng
+  function balance(eq) {
+    const m = eq.split(/\s*(->|<=>|=)(\[[^\]]*\])?\s*/); if (m.length < 4) throw new Error('thiếu mũi tên');
+    const side = (s) => s.split(/\s\+\s/).map((x) => x.trim()).filter(Boolean).map((x) => x.replace(/^\d+/, '').replace(/\s*[\^v]\s*$/, ''));
+    const tail = (s) => s.split(/\s\+\s/).map((x) => (/\s*([\^v])\s*$/.exec(x.trim()) || [])[1] || '');
+    const lhs = side(m[0]), rhs = side(m[3]), tl = tail(m[0]), tr = tail(m[3]);
+    const parse = (f) => { let s = f.replace(/\.\s*(\d*)/, (a, n) => '(' + ''), cnt = {}; const st = [{}]; const re = /([A-Z][a-z]?)(\d*)|(\()|(\))(\d*)|\^?\{?([0-9]*[+-])\}?/g; let x; s = f; while ((x = re.exec(s))) { if (x[1]) { const t = st[st.length - 1]; t[x[1]] = (t[x[1]] || 0) + (+x[2] || 1); } else if (x[3]) st.push({}); else if (x[4]) { const t = st.pop(), k = +x[5] || 1, u = st[st.length - 1]; for (const e in t) u[e] = (u[e] || 0) + t[e] * k; } else if (x[6]) { const q = x[6], n = +q.slice(0, -1) || 1; st[0].$ = (st[0].$ || 0) + (q.endsWith('+') ? n : -n); } } Object.assign(cnt, st[0]); return cnt; };
+    const all = [...lhs, ...rhs].map(parse), els = [...new Set(all.flatMap((c) => Object.keys(c)))], n = all.length;
+    const A = els.map((e) => all.map((c, j) => (c[e] || 0) * (j < lhs.length ? 1 : -1)));
+    // khử Gauss với phân số (số hữu tỉ dạng [tử, mẫu])
+    const fr = (a, b = 1) => { const g = gcd(a, b) || 1; return b < 0 ? [-a / g, -b / g] : [a / g, b / g]; }, mul = (x, y) => fr(x[0] * y[0], x[1] * y[1]), sub = (x, y) => fr(x[0] * y[1] - y[0] * x[1], x[1] * y[1]), dv = (x, y) => fr(x[0] * y[1], x[1] * y[0]);
+    const M = A.map((r) => r.map((v) => fr(v))); let row = 0; const piv = [];
+    for (let c = 0; c < n && row < M.length; c++) { const r0 = M.findIndex((r, i) => i >= row && r[c][0] !== 0); if (r0 < 0) continue; [M[row], M[r0]] = [M[r0], M[row]]; const pv = M[row][c]; M[row] = M[row].map((v) => dv(v, pv)); M.forEach((r, i) => { if (i !== row && r[c][0] !== 0) { const f = r[c]; M[i] = r.map((v, j) => sub(v, mul(f, M[row][j]))); } }); piv.push(c); row++; }
+    const free = [...Array(n).keys()].filter((c) => !piv.includes(c)); if (free.length !== 1) throw new Error('không cân bằng được duy nhất');
+    const x = Array(n).fill(null); x[free[0]] = [1, 1]; piv.forEach((c, i) => { x[c] = fr(-M[i][free[0]][0], M[i][free[0]][1]); });
+    const lcm = x.reduce((l, v) => l * v[1] / gcd(l, v[1]), 1); let co = x.map((v) => v[0] * lcm / v[1]); if (co.some((v) => v <= 0)) { co = co.map((v) => -v); if (co.some((v) => v <= 0)) throw new Error('không hợp lệ'); }
+    const g0 = co.reduce((a, b) => gcd(a, b)); co = co.map((v) => v / g0);
+    const fmt = (arr, off, tails) => arr.map((f, i) => (co[i + off] === 1 ? '' : co[i + off]) + f + (tails[i] ? ' ' + tails[i] : '')).join(' + ');
+    return fmt(lhs, 0, tl) + ' ' + m[1] + (m[2] || '') + ' ' + fmt(rhs, lhs.length, tr);
+  }
+  return { G, balance, mj };
+})();
+
+// ================= KHO MẪU (catalog) =================
+const CATALOG = (() => {
+  const S = (n, g, p) => ({ n, g, p: p || {} });
+  const gr = (n, f, a, b, extra) => S(n, 'graph', Object.assign({ f, xmin: a, xmax: b }, extra || {}));
+  const bb = (n, f, lo, hi) => S(n, 'bbt', { f, lo: lo || '', hi: hi || '' });
+  const sp = (n, tpl, params) => S(n, 'space', { tpl, params });
+  const pr = (n, prob) => S(n, 'space', { prob });
+  const sm = (list) => list.split('|').map((x) => { const i = x.indexOf('='), n = x.slice(0, i), s = x.slice(i + 1); return S(n.trim(), 'struct', { smiles: s.trim(), term: true }); });
+  const cc = (k, n, lab) => S(n, 'cc', { k, lab: lab || '' });
+  const gl = (k, n, extra) => S(n, 'glass', Object.assign({ k }, extra || {}));
+  const lx = (k, n) => S(n, 'labx', { k });
+  const mc = (k, n, extra) => S(n, 'mech', Object.assign({ k }, extra || {}));
+  const op = (k, n) => S(n, 'optic', { k });
+  const xy = (k, n) => S(n, 'xy', { k });
+  const eq = (n, e) => S(n, 'eq', { eq: e, bal: false });
+  return {
+    toan: [
+      ['ĐỒ THỊ HÀM SỐ', [gr('Đồ thị y = f(x) (tự nhập)', 'x^2 - 2x - 3', -2, 4), gr('Hệ trục Oxy có lưới', '', -5, 5, { grid: true, autoY: false, ymin: -4, ymax: 4 }), gr('Hàm bậc ba y = x³ − 3x', 'x^3 - 3x', -2.5, 2.5), gr('Hàm trùng phương y = x⁴ − 2x²', 'x^4 - 2x^2', -2, 2), gr('Parabol y = x² − 2x − 3', 'x^2 - 2x - 3', -2, 4), gr('Đường thẳng y = 2x − 1', '2x - 1', -2, 3), gr('Hàm phân thức y = (2x − 1)/(x − 1)', '(2x - 1)/(x - 1)', -4, 6), gr('Hyperbol y = 1/x', '1/x', -4, 4), gr('Hàm căn y = √x', 'sqrt(x)', -1, 6), gr('Hàm mũ y = 2ˣ', '2^x', -3, 3), gr('Hàm logarit y = ln x', 'ln x', -1, 6), gr('Hàm lượng giác y = sin x', 'sin x', -6.3, 6.3, { equal: false }), gr('y = |x − 1|', '|x - 1|', -3, 4), gr('y = (x² − x + 1)/(x − 1), tiệm cận xiên', '(x^2 - x + 1)/(x - 1)', -4, 6), gr('y = −x⁴ + 2x², ba cực trị', '-x^4 + 2x^2', -2, 2), gr('Parabol và đường thẳng cắt nhau', 'x^2 - 2x - 3; 2x - 3', -2, 5, { color: true }), gr('y = sin x và y = cos x', 'sin x; cos x', -6.3, 6.3, { equal: false, color: true })]],
+      ['BẢNG BIẾN THIÊN & XÉT DẤU', [bb('BBT hàm bậc ba (2 cực trị)', 'x^3 - 3x + 1'), bb('BBT bậc ba, a < 0', '-x^3 + 3x^2 - 1'), bb('BBT bậc ba đồng biến', 'x^3 + x'), bb('BBT bậc ba nghịch biến', '-x^3 - 3x'), bb('BBT trùng phương (a > 0, 3 cực trị)', 'x^4 - 2x^2'), bb('BBT trùng phương (a < 0, 3 cực trị)', '-x^4 + 2x^2 + 1'), bb('BBT trùng phương một cực trị', 'x^4 + x^2'), bb('BBT phân thức bậc nhất (y′ < 0)', '(2x + 1)/(x - 1)'), bb('BBT phân thức bậc nhất (y′ > 0)', '(x - 2)/(x + 1)'), bb('BBT phân thức bậc hai/bậc nhất', '(x^2 - x + 1)/(x - 1)'), bb('BBT hàm căn y = √x', 'sqrt(x)'), bb('BBT hàm mũ y = 2ˣ', '2^x'), bb('BBT hàm mũ y = (1/2)ˣ', '0.5^x'), bb('BBT hàm logarit y = ln x', 'ln x'), bb('BBT y = sin x trên [0; 2π]', 'sin x', '0', '2pi'), S('Xét dấu nhị thức ax + b', 'sign', { f: '2x - 4' }), S('Xét dấu tam thức (Δ > 0)', 'sign', { f: 'x^2 - x - 6' }), S('Xét dấu tam thức (Δ = 0)', 'sign', { f: '(x - 1)^2' }), S('Xét dấu tích (x + 2)(x − 1)(x − 3)', 'sign', { f: '(x+2)(x-1)(x-3)' }), S('Xét dấu thương (x − 1)/(x + 2)', 'sign', { f: '(x-1)/(x+2)' }), S('Bảng giá trị', 'valtab', {})]],
+      ['HÌNH HỌC PHẲNG', [sp('Tam giác và đường cao', 'p_duongcao'), sp('Ba đường trung tuyến, trọng tâm G', 'p_trongtam'), sp('Đường phân giác', 'p_phangiac'), sp('Ba đường cao, trực tâm H', 'p_trucam'), sp('Tam giác + đường tròn ngoại tiếp', 'p_ngoaitiep'), sp('Tam giác + đường tròn nội tiếp', 'p_noitiep'), sp('Hệ thức lượng trong tam giác vuông', 'p_tgvuong'), sp('Hai tiếp tuyến cắt nhau', 'p_tieptuyen'), sp('Tứ giác nội tiếp', 'p_tugiacnt'), sp('Hình bình hành', 'p_hbh'), sp('Hình thang cân', 'p_thangcan'), S('Đường tròn lượng giác', 'trig', {}), S('Elip', 'conic', { k: 'elip' }), S('Hypebol', 'conic', { k: 'hyp' }), S('Parabol', 'conic', { k: 'par' })]],
+      ['HÌNH KHÔNG GIAN', TEMPLATE_LIST.filter((t) => !t.plane).map((t) => sp(t.name + (t.sub && /[A-Z]/.test(t.sub) ? ' ' + t.sub : ''), t.id)).concat([pr('Chóp ngũ giác đều', 'Cho hình chóp đều S.ABCDE có cạnh đáy bằng a và chiều cao 2a.'), pr('Chóp tứ giác đều, tâm O', 'Cho hình chóp tứ giác đều S.ABCD có cạnh đáy a, cạnh bên a√2. Gọi O là tâm của đáy.')])],
+      ['THIẾT DIỆN', [pr('Thiết diện tam giác BDA′ của hình lập phương', "Cho hình lập phương ABCD.A'B'C'D'. Xác định thiết diện cắt bởi mặt phẳng (A'BD)."), pr('Thiết diện hình chữ nhật ACC′A′', "Cho hình lập phương ABCD.A'B'C'D'. Xác định thiết diện cắt bởi mặt phẳng (ACC')."), pr('Thiết diện lục giác đều của hình lập phương', "Cho hình lập phương ABCD.A'B'C'D'. Gọi M, N, P lần lượt là trung điểm của AB, BC, CC'. Xác định thiết diện cắt bởi mặt phẳng (MNP)."), pr('Thiết diện của chóp qua ba trung điểm', 'Cho hình chóp S.ABCD có đáy là hình bình hành. Gọi M, N, P lần lượt là trung điểm của SA, BC, CD. Xác định thiết diện của hình chóp cắt bởi mặt phẳng (MNP).'), pr('Thiết diện bởi mặt phẳng (SAC)', 'Cho hình chóp S.ABCD có đáy là hình vuông. Xác định thiết diện cắt bởi mặt phẳng (SAC).'), pr('Thiết diện song song với đáy', 'Cho hình chóp S.ABCD có đáy là hình vuông. Gọi M, N, P lần lượt là trung điểm của SA, SB, SC. Xác định thiết diện cắt bởi mặt phẳng (MNP).'), pr('Giao tuyến (SAB) và (SCD)', 'Cho hình chóp S.ABCD có đáy là hình bình hành tâm O. Tìm giao tuyến của hai mặt phẳng (SAB) và (SCD).')]],
+      ['GÓC & KHOẢNG CÁCH', [pr('Góc giữa SC và mặt đáy', 'Cho hình chóp S.ABCD có đáy là hình vuông cạnh a, SA vuông góc với đáy, SA = a√2. Tính góc giữa SC và mặt phẳng (ABCD).'), pr('Góc giữa mặt bên và đáy (chóp đều)', 'Cho hình chóp tứ giác đều S.ABCD có cạnh đáy a, cạnh bên a√2. Gọi O là tâm của đáy, M là trung điểm của CD. Tính góc giữa (SCD) và (ABCD).'), pr('Khoảng cách từ A đến (SBC)', 'Cho hình chóp S.ABCD có đáy là hình vuông cạnh a, SA vuông góc với đáy và SA = a. Tính khoảng cách từ A đến mặt phẳng (SBC).'), pr('Khoảng cách hai đường chéo nhau', "Cho hình lăng trụ đứng ABC.A'B'C' có đáy là tam giác vuông tại B, AB = a, BC = a√3, AA' = 2a. Gọi M là trung điểm của BC. Tính khoảng cách giữa hai đường thẳng AM và B'C.")]],
+      ['MẶT CẦU, NÓN, TRỤ', [sp('Mặt cầu ngoại tiếp chóp đều', 'cau_ngoai_tiep'), pr('Mặt cầu ngoại tiếp chóp SA ⊥ đáy', 'Cho hình chóp S.ABCD có đáy là hình vuông cạnh a, SA vuông góc với đáy, SA = a. Xác định tâm I của mặt cầu ngoại tiếp hình chóp.'), sp('Hình trụ', 'tru'), sp('Hình nón', 'non'), sp('Hình cầu', 'cau'), sp('Hình chóp cụt', 'chop_cut')]],
+      ['TẬP HỢP, THỐNG KÊ, TÍCH PHÂN', [S('Trục số: khoảng / đoạn', 'numline', {}), S('Biểu đồ cột', 'bar', {}), S('Biểu đồ tròn', 'pie', {}), S('Biểu đồ Ven 2 tập', 'venn', { n: '2' }), S('Biểu đồ Ven 3 tập', 'venn', { n: '3' }), gr('Diện tích hình phẳng (tô miền)', 'x^2', -1, 3, { shade: '0;2' }), gr('Diện tích giữa hai đường', 'x^2; x + 2', -2, 3, { shade: '-1;2', between: true, color: true })]],
+    ],
+    ly: [
+      ['MẠCH ĐIỆN', [S('Mạch điện từ sơ đồ (tự nhập)', 'circuit', {}), S('Mạch R nối tiếp, ampe kế', 'circuit', { net: 'R1, R2, A' }), S('Mạch song song có vôn kế', 'circuit', { net: '(R1 // R2 // V), A' }), S('Mạch RLC nối tiếp', 'circuit', { net: 'R, L, C, A', src: 'AC', k: true })].concat(GEN.G.cc ? [['R', 'Điện trở', 'R'], ['RB', 'Biến trở', 'R'], ['Đ', 'Bóng đèn', 'Đ'], ['KD', 'Công tắc đóng'], ['K', 'Công tắc mở'], ['A', 'Ampe kế'], ['V', 'Vôn kế'], ['G', 'Điện kế'], ['C', 'Tụ điện', 'C'], ['L', 'Cuộn cảm', 'L'], ['E', 'Pin / nguồn một chiều'], ['BN', 'Bộ nguồn'], ['AC', 'Nguồn xoay chiều'], ['W', 'Dây dẫn (đoạn thẳng)'], ['WL', 'Dây dẫn gấp góc'], ['N', 'Điểm nối'], ['D', 'Điốt'], ['BA', 'Máy biến áp']].map(([k, n, l]) => cc(k, n, l)) : [])],
+      ['CƠ HỌC', [mc('khoi', 'Vật hình khối'), mc('cau', 'Quả cầu / chất điểm'), mc('loxo', 'Lò xo'), mc('luc', 'Vectơ lực (mũi tên có nhãn)', { lab: 'F' }), mc('kt', 'Kích thước (mũi tên hai đầu)', { lab: 'ℓ' }), mc('goc', 'Cung góc có nhãn', { lab: 'α' }), mc('san', 'Mặt sàn có gạch chéo'), mc('tuong', 'Tường / điểm treo'), mc('mpn', 'Mặt phẳng nghiêng'), mc('rr', 'Ròng rọc'), mc('xe', 'Xe lăn'), mc('treo', 'Dây treo + vật nặng'), mc('cld', 'Con lắc đơn', { lab: 'α' }), mc('clxd', 'Con lắc lò xo thẳng đứng'), mc('clxn', 'Con lắc lò xo nằm ngang'), mc('donbay', 'Đòn bẩy cân bằng'), S('Lực tác dụng lên vật trên mặt phẳng nghiêng', 'forces', {}), S('Vật trên mặt ngang, lực kéo xiên', 'forces', { mode: 'ngang' })]],
+      ['QUANG HỌC', [op('tkht', 'Thấu kính hội tụ'), op('tkpk', 'Thấu kính phân kì'), op('gp', 'Gương phẳng'), op('gclom', 'Gương cầu lõm'), op('gcloi', 'Gương cầu lồi'), op('tia', 'Tia sáng (có mũi tên)'), op('vat', 'Vật sáng AB'), op('truc', 'Trục chính'), op('td', 'Tiêu điểm (F, F′, O)'), op('lk', 'Lăng kính'), op('bmss', 'Bản mặt song song'), op('khe', 'Màn chắn có hai khe'), op('man', 'Màn quan sát'), op('kx', 'Khúc xạ ánh sáng (i, r)'), op('mat', 'Mắt'), S('Ảnh tạo bởi thấu kính hội tụ (dựng ảnh)', 'lens', {}), S('Ảnh tạo bởi thấu kính phân kì', 'lens', { type: 'phan', d: 20 }), S('Vật trong tiêu cự: ảnh ảo', 'lens', { d: 6 })]],
+      ['DAO ĐỘNG & SÓNG', [S('Đồ thị dao động điều hòa x(t)', 'wave', {}), S('Sóng ngang (λ, A)', 'wave', { mode: 'song' }), S('Dao động pha ban đầu −π/2', 'wave', { phi: '-1/2' })]],
+      ['ĐỒ THỊ', [xy('vt', 'Đồ thị v–t (chuyển động thẳng biến đổi đều)'), xy('pV', 'Đồ thị p–V đẳng nhiệt'), xy('UI', 'Đặc tuyến vôn–ampe (U–I)'), xy('Nt', 'Đồ thị phóng xạ N(t)')]],
+      ['ĐỒ THỊ CHẤT KHÍ', [xy('pV2', 'p–V: hai đường đẳng nhiệt T₁ < T₂'), xy('pVp', 'p–V: đẳng áp'), xy('pVv', 'p–V: đẳng tích'), xy('VT', 'V–T: đẳng áp (qua gốc)'), xy('Vt', 'V–t (°C): đẳng áp, cắt trục tại −273°C'), xy('pT', 'p–T: đẳng tích (qua gốc)'), xy('pt', 'p–t (°C): đẳng tích, cắt trục tại −273°C'), xy('VTi', 'V–T: đẳng nhiệt'), xy('pTi', 'p–T: đẳng nhiệt')]],
+    ],
+    hoa: [
+      ['DỤNG CỤ THỦY TINH', [['coc', 'Cốc'], ['btg', 'Bình tam giác'], ['bc', 'Bình cầu đáy tròn'], ['on', 'Ống nghiệm'], ['onn', 'Ống nghiệm nghiêng (đun)'], ['otk', 'Ống thu khí úp'], ['od', 'Ống đong'], ['buret', 'Buret (có khóa)'], ['pheu', 'Phễu'], ['pc', 'Phễu chiết'], ['brk', 'Bình rửa khí'], ['ltk', 'Lọ thu khí'], ['chau', 'Chậu nước'], ['u', 'Cầu muối (ống chữ U)'], ['dt', 'Ống dẫn thẳng'], ['dl', 'Ống dẫn gấp khúc (L)'], ['dz', 'Ống dẫn gấp khúc (Z)'], ['bot', 'Bọt khí'], ['sh', 'Ống sinh hàn (nằm ngang)'], ['kip', 'Bình Kíp'], ['wurtz', 'Bình cất Wurtz (có nhánh)'], ['bc3', 'Bình cầu 3 cổ'], ['ucr', 'Ống chữ U đựng chất rắn'], ['bdm', 'Bình định mức'], ['pipet', 'Pipet có quả bóp']].map(([k, n]) => gl(k, n, ['dt', 'dl', 'dz', 'sh', 'bot', 'pipet'].includes(k) ? { lv: 0 } : {}))],
+      ['DỤNG CỤ KHÁC', [['dc', 'Điện cực'], ['den', 'Đèn cồn'], ['gia', 'Giá sắt có kẹp'], ['nk', 'Nhiệt kế'], ['nut', 'Nút cao su'], ['dh', 'Đồng hồ đo (V, A, G)'], ['kieng', 'Kiềng + lưới'], ['giaon', 'Giá ống nghiệm'], ['hat', 'Chất rắn (hạt)'], ['lo', 'Lọ hóa chất có nhãn'], ['ong', 'Ống nhỏ giọt'], ['chen', 'Chén sứ'], ['dua', 'Đũa thủy tinh'], ['cockieng', 'Cốc đun trên kiềng + đèn cồn'], ['can', 'Cân điện tử']].map(([k, n]) => lx(k, n))],
+      ['SƠ ĐỒ THÍ NGHIỆM', [S('Điều chế O₂ (nhiệt phân KMnO₄), thu qua nước', 'lab', { preset: 'nhietphan', chat: 'KMnO4', khi1: 'O2' }), S('Điều chế NH₃ / O₂ từ chất rắn, thu qua nước', 'lab', { preset: 'nhietphan', chat: 'KClO3', khi1: 'O2' }), S('Điều chế CO₂ (CaCO₃ + HCl)', 'lab', { preset: 'daykk', dd: 'HCl', ran: 'CaCO3', khi: 'CO2', nang: true }), S('Điều chế SO₂ (Na₂SO₃ + H₂SO₄ đặc)', 'lab', { preset: 'daykk', dd: 'H2SO4', ran: 'Na2SO3', khi: 'SO2', nang: true }), S('Điều chế Cl₂ (MnO₂ + HCl đặc)', 'lab', { preset: 'daykk', dd: 'HCl', ran: 'MnO2', khi: 'Cl2', nang: true }), S('Điều chế H₂ (Zn + HCl), thu úp bình', 'lab', { preset: 'daykk', dd: 'HCl', ran: 'Zn', khi: 'H2', nang: false }), S('Nhỏ dung dịch vào ống nghiệm', 'lab', { preset: 'ongnghiem' })]],
+      ['PHẢN ỨNG & CHỮ', [S('Mũi tên phản ứng', 'rxn', { k: 'to' }), S('Mũi tên thuận nghịch ⇌', 'rxn', { k: 'tn', top: '' }), S('Khí bay lên ↑', 'rxn', { k: 'up' }), S('Kết tủa ↓', 'rxn', { k: 'down' }), S('Dấu +', 'rxn', { k: 'plus' }), S('Hộp chất (sơ đồ chuyển hóa)', 'rxn', { k: 'box', top: 'CH4' })]],
+      ['NGUYÊN TỬ & BẢNG TUẦN HOÀN', [S('Mô hình nguyên tử, cấu hình electron, ô lượng tử', 'atom', {}), S('Bảng tuần hoàn', 'ptable', {}), S('Ô nguyên tố trong bảng tuần hoàn', 'ptable', { mode: 'o' })]],
+      ['PHƯƠNG TRÌNH PHẢN ỨNG', [S('Phương trình hóa học (tự cân bằng)', 'eq', { eq: 'Al + HNO3 -> Al(NO3)3 + NO ^ + H2O', bal: true }), eq('Đốt cháy etanol', 'C2H5OH + 3O2 ->[t^\\circ] 2CO2 + 3H2O'), eq('Nhiệt phân KMnO₄', '2KMnO4 ->[t^\\circ] K2MnO4 + MnO2 + O2 ^'), eq('Fe tác dụng HCl', 'Fe + 2HCl -> FeCl2 + H2 ^'), eq('Al tác dụng HNO₃ loãng', 'Al + 4HNO3 -> Al(NO3)3 + NO ^ + 2H2O'), eq('KMnO₄ + HCl đặc', '2KMnO4 + 16HCl -> 2KCl + 2MnCl2 + 5Cl2 ^ + 8H2O'), eq('Điện phân nước', '2H2O ->[\\text{đp}] 2H2 ^ + O2 ^'), eq('Fe₂(SO₄)₃ + NaOH', 'Fe2(SO4)3 + 6NaOH -> 2Fe(OH)3 v + 3Na2SO4'), eq('Lên men glucozơ', 'C6H12O6 ->[\\text{enzim}] 2C2H5OH + 2CO2 ^'), eq('Tổng hợp NH₃ (Haber)', 'N2 + 3H2 <=>[t^\\circ, p, xt] 2NH3'), eq('Nung FeS₂', '4FeS2 + 11O2 ->[t^\\circ] 2Fe2O3 + 8SO2'), eq('Este hóa', 'CH3COOH + C2H5OH <=>[H2SO4\\text{ đặc}, t^\\circ] CH3COOC2H5 + H2O'), eq('Ion: MnO₄⁻ + Fe²⁺', 'MnO4^- + 5Fe^{2+} + 8H^+ -> Mn^{2+} + 5Fe^{3+} + 4H2O')]],
+      ['ĐỒNG PHÂN', [S('Đồng phân C₄H₁₀', 'isomers', { list: 'CCCC; CC(C)C', names: 'butan; isobutan' }), S('Đồng phân C₅H₁₂', 'isomers', { list: 'CCCCC; CC(C)CC; CC(C)(C)C', names: 'pentan; isopentan; neopentan' }), S('Đồng phân anken C₄H₈', 'isomers', { list: 'C=CCC; CC=CC; C=C(C)C', names: 'but-1-en; but-2-en; isobutilen' }), S('Đồng phân C₂H₆O (ancol – ete)', 'isomers', { list: 'CCO; COC', names: 'ancol etylic; đimetyl ete' }), S('Đồng phân ancol C₃H₈O', 'isomers', { list: 'CCCO; CC(C)O', names: 'propan-1-ol; propan-2-ol' }), S('Đồng phân C₂H₄O₂ (axit – este)', 'isomers', { list: 'CC(O)=O; COC=O', names: 'axit axetic; metyl fomat' }), S('Đồng phân hình học but-2-en', 'isomers', { list: 'C/C=C\\C; C/C=C/C', names: 'cis-but-2-en; trans-but-2-en' })]],
+      ['VẼ CHẤT TỪ SMILES', [S('Công thức khung từ mã SMILES (nhập bất kỳ chất nào)', 'struct', { smiles: 'CC(=O)Oc1ccccc1C(O)=O' })]],
+      ['CÔNG THỨC: ANKAN', sm('Metan=C|Etan=CC|Propan=CCC|Butan=CCCC|Pentan=CCCCC|Hexan=CCCCCC|Heptan=CCCCCCC|Octan=CCCCCCCC|2-Metylpropan (isobutan)=CC(C)C|2-Metylbutan (isopentan)=CC(C)CC|2,2-Đimetylpropan (neopentan)=CC(C)(C)C')],
+      ['CÔNG THỨC: XICLOANKAN', sm('Xiclopropan=C1CC1|Xiclobutan=C1CCC1|Xiclopentan=C1CCCC1|Xiclohexan=C1CCCCC1')],
+      ['CÔNG THỨC: ANKEN – ANKAĐIEN', sm('Etilen=C=C|Propen=C=CC|But-1-en=C=CCC|But-2-en=CC=CC|Isobutilen=C=C(C)C|Buta-1,3-đien=C=CC=C|Isopren=C=C(C)C=C|Vinyl clorua=C=CCl|Stiren=C=Cc1ccccc1')],
+      ['CÔNG THỨC: ANKIN', sm('Axetilen=C#C|Propin=CC#C|But-1-in=CCC#C|But-2-in=CC#CC|Vinylaxetilen=C=CC#C')],
+      ['CÔNG THỨC: HIĐROCACBON THƠM', sm('Benzen=c1ccccc1|Toluen=Cc1ccccc1|Etylbenzen=CCc1ccccc1|o-Xilen=Cc1ccccc1C|m-Xilen=Cc1cccc(C)c1|p-Xilen=Cc1ccc(C)cc1|Naphtalen=c1ccc2ccccc2c1|Cumen=CC(C)c1ccccc1|Nitrobenzen=O=[N+]([O-])c1ccccc1|Clobenzen=Clc1ccccc1|TNT=Cc1c(cc(cc1[N+](=O)[O-])[N+](=O)[O-])[N+](=O)[O-]')],
+      ['CÔNG THỨC: DẪN XUẤT HALOGEN', sm('Clometan=CCl|Điclometan=ClCCl|Cloroform=ClC(Cl)Cl|Cacbon tetraclorua=ClC(Cl)(Cl)Cl|Etyl clorua=CCCl|Bromoetan=CCBr|Anlyl clorua=C=CCCl')],
+      ['CÔNG THỨC: ANCOL – PHENOL', sm('Metanol=CO|Etanol=CCO|Propan-1-ol=CCCO|Propan-2-ol=CC(C)O|Butan-1-ol=CCCCO|Etylen glicol=OCCO|Glixerol=OCC(O)CO|Ancol anlylic=C=CCO|Ancol benzylic=OCc1ccccc1|Phenol=Oc1ccccc1|o-Crezol=Cc1ccccc1O|Axit picric=Oc1c(cc(cc1[N+](=O)[O-])[N+](=O)[O-])[N+](=O)[O-]')],
+      ['CÔNG THỨC: ANĐEHIT – XETON', sm('Fomanđehit=C=O|Axetanđehit=CC=O|Propanal=CCC=O|Acrolein=C=CC=O|Benzanđehit=O=Cc1ccccc1|Glioxal=O=CC=O|Axeton=CC(C)=O|Butan-2-on=CCC(C)=O|Xiclohexanon=O=C1CCCCC1')],
+      ['CÔNG THỨC: AXIT CACBOXYLIC', sm('Axit fomic=OC=O|Axit axetic=CC(O)=O|Axit propionic=CCC(O)=O|Axit butiric=CCCC(O)=O|Axit acrylic=C=CC(O)=O|Axit metacrylic=C=C(C)C(O)=O|Axit oxalic=OC(=O)C(O)=O|Axit malonic=OC(=O)CC(O)=O|Axit adipic=OC(=O)CCCCC(O)=O|Axit lactic=CC(O)C(O)=O|Axit xitric=OC(=O)CC(O)(CC(O)=O)C(O)=O|Axit benzoic=OC(=O)c1ccccc1|Axit salixylic=OC(=O)c1ccccc1O|Axit terephtalic=OC(=O)c1ccc(cc1)C(O)=O')],
+      ['CÔNG THỨC: AXIT BÉO, CHẤT BÉO', sm('Axit panmitic=CCCCCCCCCCCCCCCC(O)=O|Axit stearic=CCCCCCCCCCCCCCCCCC(O)=O|Axit oleic=CCCCCCCC/C=C\\CCCCCCCC(O)=O|Axit linoleic=CCCCC/C=C\\C/C=C\\CCCCCCCC(O)=O|Tristearin=CCCCCCCCCCCCCCCCCC(=O)OCC(COC(=O)CCCCCCCCCCCCCCCCC)OC(=O)CCCCCCCCCCCCCCCCC')],
+      ['CÔNG THỨC: ESTE', sm('Metyl fomat=COC=O|Etyl fomat=CCOC=O|Metyl axetat=COC(C)=O|Etyl axetat=CCOC(C)=O|Vinyl axetat=CC(=O)OC=C|Metyl acrylat=COC(=O)C=C|Metyl metacrylat=COC(=O)C(C)=C|Isoamyl axetat=CC(C)CCOC(C)=O|Phenyl axetat=CC(=O)Oc1ccccc1|Benzyl axetat=CC(=O)OCc1ccccc1')],
+      ['CÔNG THỨC: AMIN – AMIT', sm('Metylamin=CN|Etylamin=CCN|Đimetylamin=CNC|Trimetylamin=CN(C)C|Etylenđiamin=NCCN|Hexametylenđiamin=NCCCCCCN|Anilin=Nc1ccccc1|Urê=NC(N)=O|Axetamit=CC(N)=O|Benzamit=NC(=O)c1ccccc1|Caprolactam=O=C1CCCCCN1|Axetonitrin=CC#N|Acrylonitrin=C=CC#N')],
+      ['CÔNG THỨC: AMINO AXIT – PEPTIT', sm('Glyxin=NCC(O)=O|Alanin=CC(N)C(O)=O|Valin=CC(C)C(N)C(O)=O|Lysin=NCCCCC(N)C(O)=O|Axit glutamic=NC(CCC(O)=O)C(O)=O|Phenylalanin=NC(Cc1ccccc1)C(O)=O|Serin=NC(CO)C(O)=O|Xistein=NC(CS)C(O)=O|Tyrosin=NC(Cc1ccc(O)cc1)C(O)=O|Gly-Ala (đipeptit)=NCC(=O)NC(C)C(O)=O')],
+      ['CÔNG THỨC: CACBOHIĐRAT', sm('Glucozơ (mạch hở)=OCC(O)C(O)C(O)C(O)C=O|Glucozơ (dạng vòng)=OC[C@H]1O[C@H](O)[C@H](O)[C@@H](O)[C@@H]1O|Fructozơ (mạch hở)=OCC(O)C(O)C(O)C(=O)CO|Saccarozơ=OC[C@H]1O[C@@](CO)(O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@@H](O)[C@@H]1O')],
+      ['CÔNG THỨC: VÔ CƠ THƯỜNG GẶP', sm('Nước=O|Amoniac=N|Cacbon đioxit=O=C=O|Lưu huỳnh đioxit=O=S=O|Axit sunfuric=OS(=O)(=O)O|Axit nitric=O[N+](=O)[O-]|Hiđro peoxit=OO|Axit xianhiđric=C#N').map((x) => ({ ...x, p: { ...x.p, hyd: true } }))],
+    ],
+    chung: [['CHỮ & HÌNH CƠ BẢN', [S('Nhãn chữ / công thức', 'text', {}), S('Mũi tên', 'arrow', {}), S('Đoạn thẳng', 'line', {}), S('Hình chữ nhật', 'rect', {}), S('Hình tròn', 'circle', {}), S('Ngoặc nhọn (chú thích)', 'brace', {})]]],
+    sets: [
+      ['HÓA HỌC', 'Điều chế và thu các khí', 'Lớp 10–11', ['hoa|SƠ ĐỒ THÍ NGHIỆM|*']], ['HÓA HỌC', 'Dụng cụ thí nghiệm cơ bản', 'Lớp 8–12', ['hoa|DỤNG CỤ THỦY TINH|0,1,2,3,6,7,8', 'hoa|DỤNG CỤ KHÁC|1,2,9']], ['HÓA HỌC', 'Đồng phân hữu cơ', 'Lớp 11', ['hoa|ĐỒNG PHÂN|0,1,2,3']], ['HÓA HỌC', 'Cacbohiđrat', 'Lớp 12', ['hoa|CÔNG THỨC: CACBOHIĐRAT|*']], ['HÓA HỌC', 'Amino axit và peptit', 'Lớp 12', ['hoa|CÔNG THỨC: AMINO AXIT – PEPTIT|0,1,3,4,9']], ['HÓA HỌC', 'Este – chất béo', 'Lớp 12', ['hoa|CÔNG THỨC: ESTE|2,3,4,7', 'hoa|CÔNG THỨC: AXIT BÉO, CHẤT BÉO|1,4']], ['HÓA HỌC', 'Phương trình phản ứng hay gặp', 'Lớp 10–12', ['hoa|PHƯƠNG TRÌNH PHẢN ỨNG|1,2,3,4,5,6,7,8']],
+      ['VẬT LÍ', 'Quang hình học', 'Lớp 11', ['ly|QUANG HỌC|15,16,17,13']], ['VẬT LÍ', 'Dao động cơ', 'Lớp 11–12', ['ly|CƠ HỌC|12,13,14', 'ly|DAO ĐỘNG & SÓNG|0']], ['VẬT LÍ', 'Khí lí tưởng: các đẳng quá trình', 'Lớp 10', ['ly|ĐỒ THỊ CHẤT KHÍ|0,1,2,3,5']], ['VẬT LÍ', 'Lực và cân bằng', 'Lớp 10', ['ly|CƠ HỌC|16,17,9,15']],
+      ['TOÁN', 'Khảo sát hàm số', 'Lớp 12', ['toan|ĐỒ THỊ HÀM SỐ|2,3,6,13', 'toan|BẢNG BIẾN THIÊN & XÉT DẤU|0,9']], ['TOÁN', 'Hình học không gian: chóp, lăng trụ, thiết diện', 'Lớp 11', ['toan|THIẾT DIỆN|0,2,3,6']], ['TOÁN', 'Góc và khoảng cách trong không gian', 'Lớp 11', ['toan|GÓC & KHOẢNG CÁCH|*']], ['TOÁN', 'Mặt cầu, nón, trụ', 'Lớp 12', ['toan|MẶT CẦU, NÓN, TRỤ|*']], ['TOÁN', 'Ba đường conic', 'Lớp 10', ['toan|HÌNH HỌC PHẲNG|12,13,14']], ['TOÁN', 'Tam giác: các đường đặc biệt', 'Lớp 10', ['toan|HÌNH HỌC PHẲNG|0,1,2,3,4,5']], ['TOÁN', 'Xét dấu và bảng biến thiên', 'Lớp 10–12', ['toan|BẢNG BIẾN THIÊN & XÉT DẤU|15,16,18,19,0']],
+    ],
+  };
+})();
+
+// ================= BẢNG VẼ (giống bảng vẽ của các app soạn đề) =================
+const BOARD = (() => {
+  const CM = 40, SNAP = 10;
+  const $ = (id) => document.getElementById(id);
+  let HT, st, sel = null, drag = null, cache = new Map(), undoS = [], redoS = [], zoom = 1, idSeq = 1;
+  const LS = 'htedu.board.v1', LSF = 'htedu.board.fav', LSR = 'htedu.board.recent';
+  const SUBJ = [['hoa', 'Hóa học'], ['ly', 'Vật lí'], ['toan', 'Toán'], ['chung', 'Chung'], ['fav', '★ Yêu thích'], ['rec', '🕘 Gần đây'], ['sets', '📚 Bộ hình theo bài']];
+  const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* bỏ qua */ } };
+  let fav = load(LSF, []), rec = load(LSR, []), subj = 'toan', query = '';
+  const keyOf = (it) => it.g + ':' + JSON.stringify(it.p);
+  const allItems = () => { const out = []; ['toan', 'ly', 'hoa', 'chung'].forEach((s) => CATALOG[s].forEach(([cat, items]) => items.forEach((it, i) => out.push({ ...it, s, cat, i })))); return out; };
+  let ALL = null;
+
+  function render(it) {
+    const k = keyOf(it);
+    if (!cache.has(k)) { try { cache.set(k, GEN.G[it.g].r(Object.assign(defaults(it.g), it.p))); } catch (e) { cache.set(k, { err: e.message, svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60"><rect width="200" height="60" fill="#fbeae7" stroke="#c4382c"/><text x="100" y="30" font-size="12" text-anchor="middle" dominant-baseline="central" fill="#c4382c">${String(e.message).slice(0, 40).replace(/</g, '')}</text></svg>`, W: 200, H: 60 }); } }
+    return cache.get(k);
+  }
+  const defaults = (g) => { const o = {}; (GEN.G[g].p || []).forEach(([k, , , d]) => (o[k] = d)); return o; };
+  const inner = (r) => { const m = r.svg.match(/^<svg[^>]*viewBox="([^"]+)"[^>]*>([\s\S]*)<\/svg>\s*$/); return m ? { vb: m[1], body: m[2] } : { vb: `0 0 ${r.W} ${r.H}`, body: r.svg }; };
+  function itemSVG(it, forExport) {
+    const r = render(it), { vb, body } = inner(r), w = it.w, h = w * r.H / r.W;
+    const tr = `translate(${(it.x - w / 2).toFixed(1)},${(it.y - h / 2).toFixed(1)}) rotate(${it.rot || 0} ${(w / 2).toFixed(1)} ${(h / 2).toFixed(1)})` + (it.fx ? ` translate(${w.toFixed(1)},0) scale(-1,1)` : '');
+    return `<g${forExport ? '' : ` data-id="${it.id}" class="bitem"`} transform="${tr}"><svg width="${w.toFixed(1)}" height="${h.toFixed(1)}" viewBox="${vb}" overflow="visible">${body}</svg>${forExport ? '' : `<rect width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="transparent"/>`}</g>`;
+  }
+  const hOf = (it) => { const r = render(it); return it.w * r.H / r.W; };
+  function draw() {
+    const W = st.w * CM, Hh = st.h * CM, svg = $('bd');
+    svg.setAttribute('viewBox', `0 0 ${W} ${Hh}`); svg.style.width = W * zoom + 'px'; svg.style.height = Hh * zoom + 'px';
+    let g = `<rect width="${W}" height="${Hh}" fill="#fff"/>`;
+    if (st.grid) g += `<defs><pattern id="bgm" width="${CM / 2}" height="${CM / 2}" patternUnits="userSpaceOnUse"><path d="M${CM / 2},0 L0,0 0,${CM / 2}" fill="none" stroke="#eef2f6" stroke-width="1"/></pattern><pattern id="bgM" width="${CM}" height="${CM}" patternUnits="userSpaceOnUse"><rect width="${CM}" height="${CM}" fill="url(#bgm)"/><path d="M${CM},0 L0,0 0,${CM}" fill="none" stroke="#dde5ec" stroke-width="1"/></pattern></defs><rect width="${W}" height="${Hh}" fill="url(#bgM)"/>`;
+    g += st.items.map((it) => itemSVG(it)).join('');
+    const s = st.items.find((i) => i.id === sel);
+    if (s) {
+      const w = s.w, h = hOf(s);
+      g += `<g transform="translate(${s.x - w / 2},${s.y - h / 2}) rotate(${s.rot || 0} ${w / 2} ${h / 2})"><rect x="-3" y="-3" width="${w + 6}" height="${h + 6}" fill="none" stroke="#14a9b5" stroke-width="${1.4 / zoom}" stroke-dasharray="5 4"/><line x1="${w / 2}" y1="-3" x2="${w / 2}" y2="-26" stroke="#14a9b5" stroke-width="${1.2 / zoom}"/><circle data-h="rot" cx="${w / 2}" cy="-30" r="${7 / zoom}" fill="#fff" stroke="#14a9b5" stroke-width="2"/><rect data-h="scale" x="${w - 4}" y="${h - 4}" width="${12 / zoom}" height="${12 / zoom}" fill="#14a9b5"/></g>`;
+    }
+    svg.innerHTML = g;
+    $('bdCount').textContent = st.items.length + ' mẫu';
+    $('bdZoom').textContent = Math.round(zoom * 100) + '%';
+    props();
+    save(LS, st);
+  }
+  const snapshot = () => { undoS.push(JSON.stringify(st)); if (undoS.length > 80) undoS.shift(); redoS = []; };
+  function add(entry, x, y) {
+    snapshot();
+    const it = { id: idSeq++, g: entry.g, p: JSON.parse(JSON.stringify(entry.p || {})), n: entry.n, x: x != null ? x : st.w * CM / 2 + (st.items.length % 5) * 14, y: y != null ? y : st.h * CM / 2 + (st.items.length % 5) * 14, rot: 0 };
+    const r = render(it); it.w = Math.min(st.w * CM * 0.45, Math.max(30, r.W * (r.W > 300 ? 0.6 : 1)));
+    if (hOf(it) > st.h * CM * 0.7) it.w *= st.h * CM * 0.7 / hOf(it);
+    if (x == null) { const h = hOf(it), W = st.w * CM, Hh = st.h * CM, boxes = st.items.map((o) => [o.x - o.w / 2, o.y - hOf(o) / 2, o.x + o.w / 2, o.y + hOf(o) / 2]); let best = null; for (let yy = h / 2 + 10; yy <= Hh - h / 2 - 10 && !best; yy += 20) for (let xx = it.w / 2 + 10; xx <= W - it.w / 2 - 10; xx += 20) { const b = [xx - it.w / 2 - 6, yy - h / 2 - 6, xx + it.w / 2 + 6, yy + h / 2 + 6]; if (!boxes.some((q) => q[0] < b[2] && q[2] > b[0] && q[1] < b[3] && q[3] > b[1])) { best = [xx, yy]; break; } } if (best) { it.x = snap(best[0]); it.y = snap(best[1]); } }
+    st.items.push(it); sel = it.id;
+    rec = [{ g: entry.g, p: entry.p, n: entry.n }].concat(rec.filter((q) => keyOf(q) !== keyOf(entry))).slice(0, 30); save(LSR, rec);
+    draw(); if (subj === 'rec') lib();
+    if (r.err) HT.toast('Mẫu này lỗi: ' + r.err, 3600);
+    return it;
+  }
+  // ---------- thư viện ----------
+  function lib() {
+    $('bdSubj').innerHTML = SUBJ.map(([k, n]) => `<button class="chip" data-s="${k}" aria-pressed="${subj === k}">${n}</button>`).join('');
+    const q = query.trim().toLowerCase().normalize('NFC');
+    const star = (e) => `<button class="star" data-fav='${HT.esc(JSON.stringify({ g: e.g, p: e.p, n: e.n }))}' aria-label="Yêu thích">${fav.some((f) => keyOf(f) === keyOf(e)) ? '★' : '☆'}</button>`;
+    const row = (e) => `<div class="lrow"><button class="litem" draggable="true" data-add='${HT.esc(JSON.stringify({ g: e.g, p: e.p, n: e.n }))}'>${HT.esc(e.n)}</button>${star(e)}</div>`;
+    let h = '';
+    if (q) { ALL = ALL || allItems(); const hit = ALL.filter((e) => (e.n + ' ' + e.cat).toLowerCase().includes(q)); h = `<p class="note">${hit.length} mẫu khớp “${HT.esc(query)}”</p>` + hit.slice(0, 120).map(row).join(''); }
+    else if (subj === 'fav') h = fav.length ? fav.map(row).join('') : '<p class="empty">Bấm ☆ cạnh một mẫu để thêm vào Yêu thích.</p>';
+    else if (subj === 'rec') h = rec.length ? rec.map(row).join('') : '<p class="empty">Các mẫu đã dùng sẽ hiện ở đây.</p>';
+    else if (subj === 'sets') h = `<p class="note">${CATALOG.sets.length} bộ hình. Bấm “Thêm cả bộ” để xếp tự động vào bảng (hoàn tác được).</p>` + ['HÓA HỌC', 'VẬT LÍ', 'TOÁN'].map((g) => `<div class="eyebrow">${g}</div>` + CATALOG.sets.map((s, i) => [s, i]).filter(([s]) => s[0] === g).map(([s, i]) => `<div class="setc"><b>${HT.esc(s[1])}</b><span class="note">${s[2]} · ${setItems(s).length} hình</span><button class="btn" data-set="${i}">＋ Thêm cả bộ vào bảng</button></div>`).join('')).join('');
+    else h = CATALOG[subj].map(([cat, items], ci) => `<details class="lcat"${ci < 2 ? ' open' : ''}><summary>${HT.esc(cat)} <span class="cnt">${items.length}</span></summary>${items.map(row).join('')}</details>`).join('');
+    $('bdLib').innerHTML = h;
+  }
+  function setItems(s) { const out = []; s[3].forEach((ref) => { const [sj, cat, idx] = ref.split('|'); const c = CATALOG[sj].find((x) => x[0] === cat); if (!c) return; const items = c[1]; (idx === '*' ? items.map((_, i) => i) : idx.split(',').map(Number)).forEach((i) => items[i] && out.push(items[i])); }); return out; }
+  function addSet(i) {
+    const items = setItems(CATALOG.sets[i]); snapshot(); const before = undoS.length;
+    const cols = Math.min(3, items.length), cw = st.w * CM / cols; let row = 0, rowH = 0, x0 = 0;
+    const startY = st.items.length ? Math.max(...st.items.map((it) => it.y + hOf(it) / 2)) + 20 : 20; let y = startY;
+    items.forEach((e, k) => { const it = { id: idSeq++, g: e.g, p: JSON.parse(JSON.stringify(e.p || {})), n: e.n, rot: 0 }; const r = render(it); it.w = Math.min(cw - 30, r.W); const h = hOf(it); const col = k % cols; if (col === 0 && k) { y += rowH + 20; rowH = 0; } it.x = col * cw + cw / 2; it.y = y + h / 2; rowH = Math.max(rowH, h); st.items.push(it); void x0; void row; });
+    const need = (y + rowH + 20) / CM; if (need > st.h) st.h = Math.ceil(need);
+    undoS.length = before; sel = null; draw(); HT.toast('Đã thêm ' + items.length + ' hình');
+  }
+  // ---------- bảng thuộc tính ----------
+  function props() {
+    const it = st.items.find((i) => i.id === sel), box = $('bdProps');
+    if (!it) { box.innerHTML = '<p class="empty">Bấm vào một hình trên bảng để chỉnh: số liệu, cỡ, góc xoay, lớp trên/dưới.</p>'; return; }
+    const G = GEN.G[it.g], p = Object.assign(defaults(it.g), it.p);
+    let h = `<div class="row"><h3 class="sec grow">${HT.esc(it.n || G.n)}</h3></div>`;
+    h += (G.p || []).map(([k, l, ty, , op]) => { const v = p[k]; if (ty === 'check') return `<label class="toggle">${l}<input type="checkbox" data-pk="${k}"${v ? ' checked' : ''}></label>`; if (ty === 'select') return `<label class="lab">${l}<select class="sel" data-pk="${k}">${op.map(([a, b]) => `<option value="${HT.esc(a)}"${String(v) === String(a) ? ' selected' : ''}>${HT.esc(b)}</option>`).join('')}</select></label>`; if (ty === 'area') return `<label class="lab">${l}<textarea class="inp" rows="4" data-pk="${k}">${HT.esc(v || '')}</textarea></label>`; return `<label class="lab">${l}<input class="inp" ${ty === 'color' ? 'type="color"' : ''} data-pk="${k}" value="${HT.esc(v == null ? '' : v)}"></label>`; }).join('');
+    h += `<div class="grid2"><label>Rộng (cm)<input class="inp" data-geo="w" value="${(it.w / CM).toFixed(2)}"></label><label>Xoay (°)<input class="inp" data-geo="rot" value="${it.rot || 0}"></label></div>`;
+    h += `<div class="row"><button class="btn" data-act="dup">Nhân bản</button><button class="btn" data-act="up">Lên trên</button><button class="btn" data-act="down">Xuống dưới</button><button class="btn" data-act="flip">Lật ngang</button><button class="btn" data-act="del" style="color:var(--accent)">Xóa</button></div>`;
+    box.innerHTML = h;
+  }
+  let pt = 0;
+  function onProp(e) {
+    const it = st.items.find((i) => i.id === sel); if (!it) return;
+    const k = e.target.dataset.pk, g = e.target.dataset.geo;
+    if (k) { clearTimeout(pt); const v = e.target.type === 'checkbox' ? e.target.checked : e.target.value; pt = setTimeout(() => { snapshot(); const old = render(it); it.p[k] = v; const r = render(it); it.w = it.w * r.W / old.W; drawKeepFocus(); }, e.target.type === 'checkbox' || e.target.tagName === 'SELECT' ? 0 : 350); }
+    if (g && e.type === 'change') { snapshot(); const v = parseFloat(String(e.target.value).replace(',', '.')); if (isFinite(v)) { if (g === 'w') it.w = Math.max(10, v * CM); else it.rot = v; } draw(); }
+  }
+  function drawKeepFocus() { const a = document.activeElement, k = a && a.dataset && a.dataset.pk, pos = a && a.selectionStart; draw(); if (k) { const n = $('bdProps').querySelector(`[data-pk="${k}"]`); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (e) { /* bỏ qua */ } } } }
+  function act(a) {
+    const i = st.items.findIndex((x) => x.id === sel); if (i < 0) return; const it = st.items[i]; snapshot();
+    if (a === 'del') { st.items.splice(i, 1); sel = null; }
+    if (a === 'dup') { const c = JSON.parse(JSON.stringify(it)); c.id = idSeq++; c.x += 20; c.y += 20; st.items.push(c); sel = c.id; }
+    if (a === 'up') { st.items.splice(i, 1); st.items.push(it); }
+    if (a === 'down') { st.items.splice(i, 1); st.items.unshift(it); }
+    if (a === 'flip') it.fx = !it.fx;
+    draw();
+  }
+  // ---------- chuột ----------
+  const local = (e) => { const svg = $('bd'), p = svg.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; const q = p.matrixTransform(svg.getScreenCTM().inverse()); return [q.x, q.y]; };
+  const snap = (v) => (st.snap ? Math.round(v / SNAP) * SNAP : v);
+  function down(e) {
+    const [x, y] = local(e), hnd = e.target.dataset && e.target.dataset.h;
+    const s = st.items.find((i) => i.id === sel);
+    if (hnd && s) { snapshot(); drag = { t: hnd, it: s, x, y, w0: s.w, r0: s.rot || 0 }; $('bd').setPointerCapture(e.pointerId); return; }
+    const g = e.target.closest && e.target.closest('.bitem');
+    if (g) { sel = +g.dataset.id; const it = st.items.find((i) => i.id === sel); snapshot(); drag = { t: 'move', it, x, y, x0: it.x, y0: it.y, moved: false }; $('bd').setPointerCapture(e.pointerId); draw(); return; }
+    sel = null; draw();
+  }
+  function move(e) {
+    const [x, y] = local(e); $('bdXY').textContent = `x: ${(x / CM).toFixed(1)}, y: ${(y / CM).toFixed(1)}`;
+    if (!drag) return; const it = drag.it;
+    if (drag.t === 'move') { it.x = snap(drag.x0 + x - drag.x); it.y = snap(drag.y0 + y - drag.y); drag.moved = true; }
+    else if (drag.t === 'scale') { const d0 = Math.hypot(drag.x - it.x, drag.y - it.y), d1 = Math.hypot(x - it.x, y - it.y); it.w = Math.max(16, drag.w0 * d1 / d0); }
+    else { let a = Math.atan2(y - it.y, x - it.x) * 180 / Math.PI + 90; if (st.snap) a = Math.round(a / 15) * 15; it.rot = Math.round(a); }
+    draw();
+  }
+  function up() { if (drag && drag.t === 'move' && !drag.moved) undoS.pop(); drag = null; }
+  // ---------- xuất ----------
+  function contentBox() { if (!st.items.length) return [0, 0, st.w * CM, st.h * CM]; let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; st.items.forEach((it) => { const w = it.w, h = hOf(it), a = (it.rot || 0) * Math.PI / 180, ew = Math.abs(w * Math.cos(a)) + Math.abs(h * Math.sin(a)), eh = Math.abs(w * Math.sin(a)) + Math.abs(h * Math.cos(a)); x0 = Math.min(x0, it.x - ew / 2); x1 = Math.max(x1, it.x + ew / 2); y0 = Math.min(y0, it.y - eh / 2); y1 = Math.max(y1, it.y + eh / 2); }); return [x0, y0, x1, y1]; }
+  function exportSVG(widthCm, crop, light) {
+    const [x0, y0, x1, y1] = crop ? contentBox() : [0, 0, st.w * CM, st.h * CM], pad = crop ? 10 : 0, vw = x1 - x0 + 2 * pad, vh = y1 - y0 + 2 * pad;
+    const wcm = widthCm || vw / CM, Wpx = Math.round(wcm / 2.54 * 96), Hpx = Math.round(Wpx * vh / vw);
+    let body = st.items.map((it) => itemSVG(it, true)).join('');
+    if (light) body = body.replace(/\s(data-[a-z-]+|class)="[^"]*"/g, '');
+    return { svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${(x0 - pad).toFixed(1)} ${(y0 - pad).toFixed(1)} ${vw.toFixed(1)} ${vh.toFixed(1)}" width="${Wpx}" height="${Hpx}"><rect x="${x0 - pad}" y="${y0 - pad}" width="${vw}" height="${vh}" fill="#fff"/>${body}</svg>`, w: Wpx, h: Hpx, wcm };
+  }
+  async function png(scale) { const e = exportSVG(+$('bdWcm').value || null, true); const k = scale || 3.125; const svg = e.svg.replace(/width="\d+" height="\d+"/, `width="${Math.round(e.w * k)}" height="${Math.round(e.h * k)}"`); return { blob: await HT.svgToPng(svg, Math.round(e.w * k), Math.round(e.h * k)), e }; }
+
+  function init(ht) {
+    HT = ht;
+    st = load(LS, null) || { w: 22, h: 13, grid: true, snap: true, items: [] };
+    idSeq = Math.max(0, ...st.items.map((i) => i.id || 0)) + 1;
+    $('bdSubj').addEventListener('click', (e) => { const b = e.target.closest('[data-s]'); if (b) { subj = b.dataset.s; query = ''; $('bdSearch').value = ''; lib(); } });
+    $('bdSearch').addEventListener('input', (e) => { query = e.target.value; lib(); });
+    $('bdLib').addEventListener('click', (e) => {
+      const a = e.target.closest('[data-add]'); if (a) { add(JSON.parse(a.dataset.add)); return; }
+      const f = e.target.closest('[data-fav]'); if (f) { const v = JSON.parse(f.dataset.fav); const i = fav.findIndex((q) => keyOf(q) === keyOf(v)); if (i >= 0) fav.splice(i, 1); else fav.unshift(v); save(LSF, fav); lib(); return; }
+      const s = e.target.closest('[data-set]'); if (s) addSet(+s.dataset.set);
+    });
+    $('bdLib').addEventListener('dragstart', (e) => { const a = e.target.closest('[data-add]'); if (a) e.dataTransfer.setData('text/plain', a.dataset.add); });
+    const wrap = $('bdWrap');
+    wrap.addEventListener('dragover', (e) => e.preventDefault());
+    wrap.addEventListener('drop', (e) => { e.preventDefault(); const d = e.dataTransfer.getData('text/plain'); if (!d) return; try { const [x, y] = local(e); add(JSON.parse(d), snap(x), snap(y)); } catch (er) { /* bỏ qua */ } });
+    const svg = $('bd');
+    svg.addEventListener('pointerdown', down); svg.addEventListener('pointermove', move); svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
+    $('bdProps').addEventListener('input', onProp); $('bdProps').addEventListener('change', onProp);
+    $('bdProps').addEventListener('click', (e) => { const b = e.target.closest('[data-act]'); if (b) act(b.dataset.act); });
+    window.addEventListener('keydown', (e) => {
+      if ($('vBoard').hidden || /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+      const it = st.items.find((i) => i.id === sel);
+      if ((e.key === 'Delete' || e.key === 'Backspace') && it) { e.preventDefault(); act('del'); }
+      else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
+      else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
+      else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd' && it) { e.preventDefault(); act('dup'); }
+      else if (it && e.key.startsWith('Arrow')) { e.preventDefault(); const s = e.shiftKey ? 10 : 2; snapshot(); if (e.key === 'ArrowLeft') it.x -= s; if (e.key === 'ArrowRight') it.x += s; if (e.key === 'ArrowUp') it.y -= s; if (e.key === 'ArrowDown') it.y += s; draw(); }
+    });
+    const undo = () => { if (!undoS.length) return; redoS.push(JSON.stringify(st)); st = JSON.parse(undoS.pop()); sel = null; draw(); };
+    const redo = () => { if (!redoS.length) return; undoS.push(JSON.stringify(st)); st = JSON.parse(redoS.pop()); sel = null; draw(); };
+    $('bdUndo').onclick = undo; $('bdRedo').onclick = redo;
+    $('bdClear').onclick = () => { if (!st.items.length) return; snapshot(); st.items = []; sel = null; draw(); HT.toast('Đã xóa bảng. Bấm ↶ để lấy lại.'); };
+    $('bdFit').onclick = () => { if (!st.items.length) return; snapshot(); const [x0, y0, x1, y1] = contentBox(), m = 20; st.items.forEach((it) => { it.x -= x0 - m; it.y -= y0 - m; }); st.w = Math.max(4, Math.ceil((x1 - x0 + 2 * m) / CM * 2) / 2); st.h = Math.max(3, Math.ceil((y1 - y0 + 2 * m) / CM * 2) / 2); syncSize(); draw(); };
+    $('bdZin').onclick = () => { zoom = Math.min(3, zoom * 1.2); draw(); }; $('bdZout').onclick = () => { zoom = Math.max(0.3, zoom / 1.2); draw(); };
+    const syncSize = () => { $('bdW').value = st.w; $('bdH').value = st.h; $('bdGrid').checked = st.grid; $('bdSnap').checked = st.snap; };
+    $('bdSize').addEventListener('change', (e) => { const v = e.target.value; if (v) { const [w, h] = v.split('x').map(Number); st.w = w; st.h = h; syncSize(); draw(); } });
+    ['bdW', 'bdH'].forEach((id) => $(id).addEventListener('change', (e) => { const v = parseFloat(e.target.value); if (v > 2 && v < 100) { st[id === 'bdW' ? 'w' : 'h'] = v; draw(); } }));
+    $('bdGrid').addEventListener('change', (e) => { st.grid = e.target.checked; draw(); }); $('bdSnap').addEventListener('change', (e) => { st.snap = e.target.checked; draw(); });
+    $('bdCopy').onclick = async () => { try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': png().then((r) => r.blob) })]); HT.toast('Đã chép hình. Dán vào Word, PowerPoint.'); } catch (e) { HT.toast('Trình xem chặn chép ảnh. Hãy dùng Lưu PNG.', 3600); } };
+    $('bdSvg').onclick = () => { const e = exportSVG(+$('bdWcm').value || null, true, $('bdLight').checked); HT.saveFile('hinh-ve.svg', e.svg, new Blob([e.svg], { type: 'image/svg+xml' })); };
+    $('bdPng').onclick = async () => { const r = await png(); HT.saveFile('hinh-ve.png', r.blob, r.blob); };
+    $('bdSaveP').onclick = () => { const d = JSON.stringify({ app: 'htedu-board', version: 1, board: st }, null, 1); HT.saveFile('ban-ve.htedu.json', d); };
+    $('bdOpenP').onclick = () => $('bdFile').click();
+    $('bdFile').addEventListener('change', async (e) => { const f = e.target.files[0]; if (!f) return; try { const d = JSON.parse(await f.text()); openProject(d.board || d); } catch (er) { HT.toast('Không mở được: ' + er.message, 3600); } e.target.value = ''; });
+    $('bdIns').onclick = async () => { try { const r = await png(); await window.HTOffice.insertImage(r.blob, r.e.wcm * 28.35, 'HTEdu:board:' + JSON.stringify(st)); HT.toast('Đã chèn'); } catch (e) { HT.toast('Không chèn được: ' + e.message, 3600); } };
+    $('bdEdit').onclick = async () => { try { const a = await window.HTOffice.selectedAlt(); if (!a.startsWith('HTEdu:board:')) throw new Error('hình đang chọn không phải bảng vẽ HTEdu'); openProject(JSON.parse(a.slice(12))); } catch (e) { HT.toast(e.message, 3600); } };
+    syncSize(); lib(); draw();
+  }
+  function openProject(b) { if (!b || !Array.isArray(b.items)) throw new Error('tệp không phải bảng vẽ HTEdu'); undoS.push(JSON.stringify(st)); st = Object.assign({ w: 22, h: 13, grid: true, snap: true }, b); idSeq = Math.max(0, ...st.items.map((i) => i.id || 0)) + 1; sel = null; $('bdW').value = st.w; $('bdH').value = st.h; draw(); HT.toast('Đã mở bảng vẽ'); }
+  function addExternal(entry) { return add(entry); }
+  return { init, addExternal };
 })();
 
 // ================= ADD-IN WORD / POWERPOINT =================
@@ -4275,6 +4859,7 @@ YÊU CẦU
     setTab(saved && saved.tab ? saved.tab : 'prob');
     if (!saved) { const pr = parseProblem(EXAMPLES[0][1]); showLog(pr.log, pr.unknown, 'Đây là đề mẫu. Dán đề của bạn vào ô trên rồi bấm <b>Dựng hình</b>.'); }
   }
+  $('bToBoard').onclick = () => { window.HTgo('ve-hinh'); BOARD.addExternal({ g: 'space', p: { scene: JSON.parse(JSON.stringify(S.scene)), beta: Math.round(S.view.beta || 0), alpha: Math.round(S.view.alpha || 45), doc: S.style.doc }, n: S.scene.name || 'Hình không gian' }); toast('Đã thêm hình vào bảng vẽ'); };
   $('bInsDraw').onclick = async () => {
     try { const e = buildExportSVG(2000, false, false); const png = await svgToPng(e.svg, e.w, e.h); const sc = JSON.stringify(Object.assign({}, S.scene, { view: { mode: S.view.mode, alpha: S.view.alpha, k: S.view.k, beta: S.view.beta, az: S.view.az, el: S.view.el } })); await window.HTOffice.insertImage(png, 300, 'HTEdu:scene:' + sc); toast('Đã chèn hình'); }
     catch (err) { toast('Không chèn được: ' + err.message, 3600); }
@@ -4289,9 +4874,10 @@ YÊU CẦU
   const HT = window.HT; const $ = (id) => document.getElementById(id);
   const LOGO = window.HT_LOGO;
   // ---------- điều hướng ----------
-  const VIEWS = { 'trang-chu': 'vHome', 've-hinh': 'vDraw', 'do-thi': 'vGraph', 'cong-thuc': 'vFormula', 'ly-hoa': 'vSci', 'phieu-omr': 'vOMR', 'huong-dan': 'vHelp' };
+  const VIEWS = { 'trang-chu': 'vHome', 've-hinh': 'vBoard', 'khong-gian': 'vDraw', 'do-thi': 'vGraph', 'cong-thuc': 'vFormula', 'phieu-omr': 'vOMR', 'huong-dan': 'vHelp' };
   let inited = {};
   function go(name, noHash) {
+    if (name === 'ly-hoa') name = 've-hinh';
     if (!VIEWS[name]) name = 'trang-chu';
     Object.entries(VIEWS).forEach(([k, id]) => { $(id).hidden = k !== name; });
     document.querySelectorAll('[data-go]').forEach((b) => b.classList.toggle('on', b.dataset.go === name && b.closest('.nav')));
@@ -4299,12 +4885,13 @@ YÊU CẦU
     if (!noHash && location.hash !== '#' + name) { try { history.replaceState(null, '', '#' + name); } catch (e) { location.hash = name; } }
     if (name === 'cong-thuc' && !inited.f) { inited.f = 1; initFormula(HT); }
     if (name === 'phieu-omr' && !inited.o) { inited.o = 1; initOMR(HT, LOGO); }
-    if (name === 'ly-hoa' && !inited.s) { inited.s = 1; SCI.init(HT, exportSvg); }
+    if (name === 've-hinh' && !inited.b) { inited.b = 1; BOARD.init(HT); }
     if (name === 'do-thi' && !inited.g) { inited.g = 1; initGraph(); }
     try { localStorage.setItem('htedu.view', name); } catch (e) { /* bỏ qua */ }
     window.scrollTo(0, 0);
   }
   document.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); go(b.dataset.go); if (b.dataset.lib) { setTimeout(() => { const c = document.querySelector(`.chip[data-g="${b.dataset.lib}"]`); if (c) c.click(); document.getElementById('tabLib').click(); }, 30); } } });
+  window.HTgo = go;
   window.addEventListener('hashchange', () => go(location.hash.slice(1), true));
 
   // ---------- tải bản offline ----------
