@@ -206,7 +206,7 @@ body.in-office .row.office-only { display: flex !important; }
 
 /* bảng vẽ */
 .view-board { overflow: hidden; }
-.bcols { display: grid; grid-template-columns: 300px minmax(0, 1fr) 290px; height: 100%; }
+.bcols { display: grid; grid-template-columns: 330px minmax(0, 1fr) 290px; height: 100%; }
 .blib { overflow: auto; border-right: 1px solid var(--line); gap: 8px; }
 .bprops { overflow: auto; border-left: 1px solid var(--line); border-right: 0; }
 .bmain { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 10px; gap: 8px; }
@@ -219,6 +219,15 @@ body.in-office .row.office-only { display: flex !important; }
 .lib { display: flex; flex-direction: column; gap: 2px; }
 .lcat summary { cursor: pointer; font-size: 11.5px; font-weight: 700; letter-spacing: .05em; color: var(--muted); padding: 7px 2px; border-bottom: 1px solid var(--line); }
 .lcat .cnt { float: right; font-weight: 500; color: var(--faint); }
+.lgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 8px 0 10px; }
+.lcard { position: relative; border: 1.5px solid var(--line); border-radius: 14px; background: var(--panel); padding: 7px 7px 8px; display: flex; flex-direction: column; gap: 6px; cursor: grab; transition: border-color .12s, box-shadow .12s; }
+.lcard:hover, .lcard:focus-visible { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary) inset; outline: none; }
+.lthumb { aspect-ratio: 4 / 3; background: #fff; border: 1px solid #edf1f5; border-radius: 9px; display: flex; align-items: center; justify-content: center; overflow: hidden; color: #9aa5b1; }
+.lthumb svg { width: 100%; height: 100%; padding: 4px; }
+.lname { font-size: 12.5px; line-height: 1.3; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.lcard .star { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,.9); border-radius: 50%; width: 26px; height: 26px; padding: 0; opacity: 0; color: #7d8b99; }
+.lcard:hover .star, .lcard .star.on { opacity: 1; }
+.lcard .star.on { color: #d9a400; }
 .lrow { display: flex; align-items: center; }
 .litem { flex: 1; text-align: left; border: 0; background: transparent; padding: 6px 6px; border-radius: 6px; font-size: 13px; cursor: grab; }
 .litem:hover { background: var(--teal-soft); }
@@ -4020,15 +4029,29 @@ const BOARD = (() => {
   function lib() {
     $('bdSubj').innerHTML = SUBJ.map(([k, n]) => `<button class="chip" data-s="${k}" aria-pressed="${subj === k}">${n}</button>`).join('');
     const q = query.trim().toLowerCase().normalize('NFC');
-    const star = (e) => `<button class="star" data-fav='${HT.esc(JSON.stringify({ g: e.g, p: e.p, n: e.n }))}' aria-label="Yêu thích">${fav.some((f) => keyOf(f) === keyOf(e)) ? '★' : '☆'}</button>`;
-    const row = (e) => `<div class="lrow"><button class="litem" draggable="true" data-add='${HT.esc(JSON.stringify({ g: e.g, p: e.p, n: e.n }))}'>${HT.esc(e.n)}</button>${star(e)}</div>`;
+    const star = (e) => `<button class="star${fav.some((f) => keyOf(f) === keyOf(e)) ? ' on' : ''}" data-fav='${HT.esc(JSON.stringify({ g: e.g, p: e.p, n: e.n }))}' aria-label="Yêu thích">${fav.some((f) => keyOf(f) === keyOf(e)) ? '★' : '☆'}</button>`;
+    const row = (e) => `<div class="lcard" draggable="true" role="button" tabindex="0" title="${HT.esc(e.n + (e.cat ? ' (' + ({ toan: 'Toán', ly: 'Vật lí', hoa: 'Hóa học', chung: 'Chung' }[e.s] || '') + ' › ' + e.cat.toLowerCase() + ')' : ''))}" data-add='${HT.esc(JSON.stringify({ g: e.g, p: e.p, n: e.n }))}'><div class="lthumb" data-k='${HT.esc(JSON.stringify({ g: e.g, p: e.p }))}'></div><div class="lname">${HT.esc(e.n)}</div>${star(e)}</div>`;
+    const grid = (arr) => `<div class="lgrid">${arr.map(row).join('')}</div>`;
     let h = '';
-    if (q) { ALL = ALL || allItems(); const hit = ALL.filter((e) => (e.n + ' ' + e.cat).toLowerCase().includes(q)); h = `<p class="note">${hit.length} mẫu khớp “${HT.esc(query)}”</p>` + hit.slice(0, 120).map(row).join(''); }
-    else if (subj === 'fav') h = fav.length ? fav.map(row).join('') : '<p class="empty">Bấm ☆ cạnh một mẫu để thêm vào Yêu thích.</p>';
-    else if (subj === 'rec') h = rec.length ? rec.map(row).join('') : '<p class="empty">Các mẫu đã dùng sẽ hiện ở đây.</p>';
+    if (q) { ALL = ALL || allItems(); const hit = ALL.filter((e) => (e.n + ' ' + e.cat).toLowerCase().includes(q)); h = `<p class="note">${hit.length} mẫu khớp “${HT.esc(query)}”</p>` + grid(hit.slice(0, 120)); }
+    else if (subj === 'fav') h = fav.length ? grid(fav) : '<p class="empty">Bấm ☆ cạnh một mẫu để thêm vào Yêu thích.</p>';
+    else if (subj === 'rec') h = rec.length ? grid(rec) : '<p class="empty">Các mẫu đã dùng sẽ hiện ở đây.</p>';
     else if (subj === 'sets') h = `<p class="note">${CATALOG.sets.length} bộ hình. Bấm “Thêm cả bộ” để xếp tự động vào bảng (hoàn tác được).</p>` + ['HÓA HỌC', 'VẬT LÍ', 'TOÁN'].map((g) => `<div class="eyebrow">${g}</div>` + CATALOG.sets.map((s, i) => [s, i]).filter(([s]) => s[0] === g).map(([s, i]) => `<div class="setc"><b>${HT.esc(s[1])}</b><span class="note">${s[2]} · ${setItems(s).length} hình</span><button class="btn" data-set="${i}">＋ Thêm cả bộ vào bảng</button></div>`).join('')).join('');
-    else h = CATALOG[subj].map(([cat, items], ci) => `<details class="lcat"${ci < 2 ? ' open' : ''}><summary>${HT.esc(cat)} <span class="cnt">${items.length}</span></summary>${items.map(row).join('')}</details>`).join('');
+    else h = CATALOG[subj].map(([cat, items], ci) => `<details class="lcat"${ci < 2 ? ' open' : ''}><summary>${HT.esc(cat)} <span class="cnt">${items.length}</span></summary>${grid(items.map((it) => ({ ...it, s: subj, cat })))}</details>`).join('');
     $('bdLib').innerHTML = h;
+    observeThumbs();
+  }
+  let io = null;
+  function thumb(el) {
+    try { const d = JSON.parse(el.dataset.k), r = render(d), { vb, body } = inner(r); el.innerHTML = `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid meet">${body}</svg>`; }
+    catch (e) { el.textContent = '—'; }
+    el.removeAttribute('data-k');
+  }
+  function observeThumbs() {
+    const els = [...$('bdLib').querySelectorAll('.lthumb[data-k]')];
+    if (!('IntersectionObserver' in window)) { els.forEach(thumb); return; }
+    if (!io) io = new IntersectionObserver((ents) => ents.forEach((en) => { if (en.isIntersecting) { io.unobserve(en.target); requestAnimationFrame(() => thumb(en.target)); } }), { rootMargin: '200px' });
+    els.forEach((el) => io.observe(el));
   }
   function setItems(s) { const out = []; s[3].forEach((ref) => { const [sj, cat, idx] = ref.split('|'); const c = CATALOG[sj].find((x) => x[0] === cat); if (!c) return; const items = c[1]; (idx === '*' ? items.map((_, i) => i) : idx.split(',').map(Number)).forEach((i) => items[i] && out.push(items[i])); }); return out; }
   function addSet(i) {
@@ -4105,10 +4128,11 @@ const BOARD = (() => {
     $('bdSubj').addEventListener('click', (e) => { const b = e.target.closest('[data-s]'); if (b) { subj = b.dataset.s; query = ''; $('bdSearch').value = ''; lib(); } });
     $('bdSearch').addEventListener('input', (e) => { query = e.target.value; lib(); });
     $('bdLib').addEventListener('click', (e) => {
+      const f = e.target.closest('[data-fav]'); if (f) { e.stopPropagation(); const v = JSON.parse(f.dataset.fav); const i = fav.findIndex((q) => keyOf(q) === keyOf(v)); if (i >= 0) fav.splice(i, 1); else fav.unshift(v); save(LSF, fav); f.textContent = i >= 0 ? '☆' : '★'; f.classList.toggle('on', i < 0); if (subj === 'fav') lib(); return; }
       const a = e.target.closest('[data-add]'); if (a) { add(JSON.parse(a.dataset.add)); return; }
-      const f = e.target.closest('[data-fav]'); if (f) { const v = JSON.parse(f.dataset.fav); const i = fav.findIndex((q) => keyOf(q) === keyOf(v)); if (i >= 0) fav.splice(i, 1); else fav.unshift(v); save(LSF, fav); lib(); return; }
       const s = e.target.closest('[data-set]'); if (s) addSet(+s.dataset.set);
     });
+    $('bdLib').addEventListener('keydown', (e) => { const a = e.target.closest && e.target.closest('.lcard'); if (a && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); add(JSON.parse(a.dataset.add)); } });
     $('bdLib').addEventListener('dragstart', (e) => { const a = e.target.closest('[data-add]'); if (a) e.dataTransfer.setData('text/plain', a.dataset.add); });
     const wrap = $('bdWrap');
     wrap.addEventListener('dragover', (e) => e.preventDefault());
